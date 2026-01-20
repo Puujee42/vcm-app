@@ -118,13 +118,13 @@ export default function Navbar() {
       >
         <nav
           onMouseLeave={() => setHoveredNav(null)}
-          style={{ WebkitBackdropFilter: "blur(40px)" }}
+          style={{ WebkitBackdropFilter: "blur(12px)" }}
           className={`
           z-[100] transform-gpu pointer-events-auto flex items-center justify-between transition-all duration-700 relative
-          w-[98%] xl:w-[1250px] py-3 px-6 rounded-full border backdrop-blur-2xl shadow-2xl
+          w-[98%] xl:w-[1250px] py-3 px-6 rounded-full border backdrop-blur-md shadow-2xl
           ${isScrolled
               ? (isDark ? "bg-[#00101a]/95 border-red-900/40 shadow-black" : "bg-white/95 border-emerald-100 shadow-emerald-100/50")
-              : (isDark ? "bg-[#00101a]/40 border-white/5" : "bg-white/40 border-white/20 shadow-none")}
+              : (isDark ? "bg-[#00101a]/80 border-white/5" : "bg-white/80 border-white/20 shadow-none")}
           ${isDark ? "text-slate-100" : "text-[#001829]"}
         `}>
           {/* Logo */}
@@ -170,8 +170,8 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        style={{ WebkitBackdropFilter: "blur(64px)" }}
-                        className={`transform-gpu absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[600px] p-4 rounded-3xl border shadow-xl z-[100] backdrop-blur-3xl
+                        style={{ WebkitBackdropFilter: "blur(16px)" }}
+                        className={`transform-gpu absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[600px] p-4 rounded-3xl border shadow-xl z-[100] backdrop-blur-lg
                           ${isDark
                             ? "bg-[#00101a]/95 border-white/10 text-slate-200"
                             : "bg-white/95 border-emerald-50 text-slate-800"}`}
@@ -256,8 +256,8 @@ export default function Navbar() {
         {/* Logo Left */}
         <Link href="/" className="pointer-events-auto">
           <div
-            style={{ WebkitBackdropFilter: "blur(24px)" }}
-            className={`transform-gpu flex items-center gap-2 p-1.5 pr-4 rounded-full backdrop-blur-xl border shadow-2xl transition-all ${isDark ? "bg-black/50 border-white/10" : "bg-white/80 border-slate-100"
+            style={{ WebkitBackdropFilter: "blur(12px)" }}
+            className={`transform-gpu flex items-center gap-2 p-1.5 pr-4 rounded-full backdrop-blur-md border shadow-2xl transition-all ${isDark ? "bg-black/80 border-white/10" : "bg-white/90 border-slate-100"
               }`}>
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/50 bg-white">
               <Image src="/image.png" alt="Logo" fill className="object-cover" />
@@ -284,7 +284,7 @@ export default function Navbar() {
 
           <button
             onClick={toggleLanguage}
-            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border backdrop-blur-md ${isDark ? "bg-black/50 border-white/10 text-white" : "bg-white/80 border-slate-100 text-slate-700 shadow-sm"
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border backdrop-blur-sm ${isDark ? "bg-black/80 border-white/10 text-white" : "bg-white/90 border-slate-100 text-slate-700 shadow-sm"
               }`}
           >
             <span className="text-[10px] font-black">{lang === 'mn' ? 'EN' : 'MN'}</span>
@@ -302,9 +302,9 @@ export default function Navbar() {
       {/* ========================================================= */}
       <div className="lg:hidden fixed bottom-6 left-0 right-0 z-[100] px-2 flex justify-center">
         <nav
-          style={{ WebkitBackdropFilter: "blur(64px)" }}
+          style={{ WebkitBackdropFilter: "blur(16px)" }}
           className={`
-          transform-gpu grid grid-cols-5 items-end justify-between w-full max-w-[420px] px-1 py-3 pb-3 rounded-[2rem] border shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] backdrop-blur-3xl transition-all duration-700
+          transform-gpu grid grid-cols-5 items-end justify-between w-full max-w-[420px] px-1 py-3 pb-3 rounded-[2rem] border shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] backdrop-blur-lg transition-all duration-700
           ${isDark ? "bg-[#0F172A]/95 border-white/10 shadow-black text-slate-400" : "bg-white/95 border-slate-200 shadow-slate-200/50 text-slate-500"}
         `}>
           {mobileNav.map((item, index) => {

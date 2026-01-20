@@ -6,11 +6,11 @@ import { motion, useScroll, useTransform, Variants, useSpring } from "framer-mot
 import CountUp from "react-countup";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
-import { 
-  FaUserGraduate, 
-  FaGlobeEurope, 
-  FaAward, 
-  FaHourglassHalf, 
+import {
+  FaUserGraduate,
+  FaGlobeEurope,
+  FaAward,
+  FaHourglassHalf,
   FaArrowRight,
   FaQuoteRight,
   FaCheckCircle
@@ -23,7 +23,7 @@ const useLanguage = () => ({ language: "mn" });
 /* ────────────────────── Design System ────────────────────── */
 const COLORS = {
   RED: "#E31B23",
-  GREEN: "#00C896", 
+  GREEN: "#00C896",
   DARK: "#0F172A",
   SLATE: "#64748B",
 };
@@ -31,7 +31,7 @@ const COLORS = {
 const UsSection = () => {
   const { language } = useLanguage(); // "mn" or "en"
   const containerRef = useRef(null);
-  
+
   // ─── Parallax & Scroll Hooks ───
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -52,9 +52,9 @@ const UsSection = () => {
         pre: "Бид Монгол Залуусыг",
         post: "хөтөлнө.",
         sequence: [
-           "Дэлхийн боловсрол руу", 2500,
-           "Европын соёл руу", 2500,
-           "Амжилттай ирээдүй рүү", 2500
+          "Дэлхийн боловсрол руу", 2500,
+          "Европын соёл руу", 2500,
+          "Амжилттай ирээдүй рүү", 2500
         ]
       },
       desc: [
@@ -76,9 +76,9 @@ const UsSection = () => {
         pre: "Guiding Youth Towards",
         post: ".",
         sequence: [
-           "Global Education", 2500,
-           "European Culture", 2500,
-           "A Brighter Future", 2500
+          "Global Education", 2500,
+          "European Culture", 2500,
+          "A Brighter Future", 2500
         ]
       },
       desc: [
@@ -116,18 +116,18 @@ const UsSection = () => {
 
   return (
     <section ref={containerRef} className="relative w-full py-24 lg:py-32 overflow-hidden bg-slate-50 selection:bg-red-100 selection:text-red-900">
-      
+
       {/* ────────────────── 1. AMBIENT BACKGROUND ────────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Soft Noise Overlay */}
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40 mix-blend-soft-light" />
-        
+
         {/* Animated Orbs */}
-        <motion.div 
+        <motion.div
           style={{ y: yBackground }}
           className="absolute -top-[20%] -right-[10%] w-[1000px] h-[1000px] bg-gradient-to-b from-red-100/40 via-orange-50/20 to-transparent rounded-full blur-[100px] mix-blend-multiply"
         />
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.1, 1], rotate: [0, 45, 0] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
           className="absolute top-[30%] -left-[20%] w-[800px] h-[800px] bg-gradient-to-tr from-green-100/30 to-blue-50/20 rounded-full blur-[100px] mix-blend-multiply"
@@ -135,11 +135,11 @@ const UsSection = () => {
       </div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
-        
+
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          
+
           {/* ────────────────── 2. LEFT: NARRATIVE CONTENT ────────────────── */}
-          <motion.div 
+          <motion.div
             variants={containerVar}
             initial="hidden"
             whileInView="visible"
@@ -149,7 +149,7 @@ const UsSection = () => {
             {/* Badge */}
             <motion.div variants={textVar} className="mb-8 flex items-center gap-3">
               <span className="flex items-center justify-center w-8 h-8 rounded-full bg-red-100 text-[#E31B23]">
-                 <FaAward size={14} />
+                <FaAward size={14} />
               </span>
               <span className="text-sm font-bold uppercase tracking-widest text-slate-500 font-sans">
                 {t.badge}
@@ -158,10 +158,10 @@ const UsSection = () => {
 
             {/* Headline with TypeAnimation */}
             <motion.h2 variants={textVar} className="text-4xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-8 min-h-[3.3em] lg:min-h-[2.5em]">
-              {t.heading.pre} <br className="hidden md:block"/>
+              {t.heading.pre} <br className="hidden md:block" />
               <span className="inline-block relative">
                 {/* Highlighter Effect */}
-                <motion.span 
+                <motion.span
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
@@ -190,11 +190,11 @@ const UsSection = () => {
 
             {/* Quote Box */}
             <motion.div variants={textVar} className="mt-10 p-6 bg-white border border-slate-100 rounded-2xl shadow-sm relative italic text-slate-700 flex gap-4">
-               <div className="text-4xl text-red-200"><FaQuoteRight /></div>
-               <div>
-                  <p className="relative z-10 font-semibold text-lg">"{t.quote}"</p>
-                  <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-wide">— Founder</p>
-               </div>
+              <div className="text-4xl text-red-200"><FaQuoteRight /></div>
+              <div>
+                <p className="relative z-10 font-semibold text-lg">"{t.quote}"</p>
+                <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-wide">— Founder</p>
+              </div>
             </motion.div>
 
             {/* CTA Button */}
@@ -214,29 +214,29 @@ const UsSection = () => {
 
           {/* ────────────────── 3. RIGHT: VISUAL COMPOSITION ────────────────── */}
           <div className="relative h-full flex items-center justify-center lg:pt-12 perspective-[1000px]">
-             
+
             {/* Main Image Layer */}
-            <motion.div 
-               style={{ rotate: rotateImage, y: yImage }}
-               initial={{ opacity: 0, y: 50, rotate: -2 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.8 }}
-               viewport={{ once: true }}
-               className="relative z-10 w-full max-w-md mx-auto"
+            <motion.div
+              style={{ rotate: rotateImage, y: yImage }}
+              initial={{ opacity: 0, y: 50, rotate: -2 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative z-10 w-full max-w-md mx-auto"
             >
               {/* Image Frame */}
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-900/20 border-[8px] border-white bg-white">
                 <div className="aspect-[3/4] relative group">
                   {/* Using a professional business image from Unsplash */}
-                  <Image 
-                    src="/ceo.webp" 
-                    alt="Agency Founder" 
+                  <Image
+                    src="/ceo.webp"
+                    alt="Agency Founder"
                     fill
-                    className="object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+                    className="object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-in-out"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-80" />
-                  
+
                   {/* Name Tag on Image */}
                   <div className="absolute bottom-6 left-6 text-white">
                     <p className="text-xs font-bold uppercase tracking-widest opacity-80 mb-1">Founder</p>
@@ -246,16 +246,16 @@ const UsSection = () => {
               </div>
 
               {/* Floating Glass Element - Stats/Experience */}
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-8 -right-8 md:-right-12 bg-white/90 backdrop-blur-xl p-6 rounded-[1.5rem] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] border border-white/60 max-w-[240px]"
+                className="absolute -bottom-8 -right-8 md:-right-12 bg-white/90 backdrop-blur-md p-6 rounded-[1.5rem] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] border border-white/60 max-w-[240px]"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="bg-green-100 text-[#00C896] p-2.5 rounded-xl">
-                     <FaCheckCircle className="text-xl" />
+                    <FaCheckCircle className="text-xl" />
                   </div>
-                  <span className="text-xs font-bold text-slate-500 uppercase leading-tight">Officially<br/>Accredited</span>
+                  <span className="text-xs font-bold text-slate-500 uppercase leading-tight">Officially<br />Accredited</span>
                 </div>
                 <p className="text-sm text-slate-600 font-semibold leading-snug">
                   Recognized by international Au Pair associations for safety & quality.
@@ -263,7 +263,7 @@ const UsSection = () => {
               </motion.div>
 
               {/* Floating Decorative Stamp (Spinning Text) */}
-              <motion.div 
+              <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                 className="absolute -top-10 -left-10 w-32 h-32 bg-[#E31B23] rounded-full flex items-center justify-center shadow-xl shadow-red-500/30 border-4 border-white z-20"
@@ -287,7 +287,7 @@ const UsSection = () => {
         </div>
 
         {/* ────────────────── 4. STATS BAR ────────────────── */}
-        <motion.div 
+        <motion.div
           variants={{
             hidden: { opacity: 0 },
             visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.4 } }
@@ -304,16 +304,15 @@ const UsSection = () => {
               whileHover={{ y: -8 }}
               className="bg-white rounded-3xl p-8 border border-slate-100 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] transition-all duration-300 group cursor-default text-center relative overflow-hidden"
             >
-              <stat.icon 
-                className={`text-4xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 ${
-                    idx % 2 === 0 ? 'text-[#E31B23]' : 'text-[#00C896]'
-                }`} 
+              <stat.icon
+                className={`text-4xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 ${idx % 2 === 0 ? 'text-[#E31B23]' : 'text-[#00C896]'
+                  }`}
               />
-              
+
               <h4 className="text-4xl lg:text-5xl font-black text-slate-800 tracking-tight mb-2">
                 <CountUp end={stat.val} duration={2.5} enableScrollSpy scrollSpyOnce />
                 <span className={`text-2xl ml-0.5 ${idx % 2 === 0 ? 'text-red-300' : 'text-green-300'}`}>
-                    {stat.suffix}
+                  {stat.suffix}
                 </span>
               </h4>
               <p className="text-xs font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-600 transition-colors">
