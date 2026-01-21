@@ -77,7 +77,7 @@ const Motion = new Proxy(framerMotion, {
 
             if (isMobile) {
                 // If mobile, render the native HTML tag (e.g., 'div', 'span') with filtered props
-                const Tag = prop as keyof JSX.IntrinsicElements;
+                const Tag = prop as any;
                 const nativeProps = filterProps(props);
                 return <Tag {...nativeProps} ref={ref} />;
             }
