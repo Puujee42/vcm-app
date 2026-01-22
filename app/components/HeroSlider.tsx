@@ -73,6 +73,8 @@ const Hero = () => {
   // Mock Language hook (Replace with your actual context)
   const language = "mn"; // Change to "en" to test English
   const [slideIndex, setSlideIndex] = useState(0);
+  const containerRef = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
 
   // Helper for translations
   const t = useCallback(
@@ -102,18 +104,37 @@ const Hero = () => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    
+    // Intersection Observer to lazy load video
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <section className="relative h-[100dvh] min-h-[700px] w-full bg-slate-900 text-white flex items-center justify-center overflow-hidden selection:bg-red-500 selection:text-white">
+    <section ref={containerRef} className="relative h-[100dvh] min-h-[700px] w-full bg-slate-900 text-white flex items-center justify-center overflow-hidden selection:bg-red-500 selection:text-white">
 
       {/* ─── 1. Background (Video/Image) ─── */}
       <div className="absolute inset-0 z-0">
         {/* Placeholder for Video - Replace src with your actual video file */}
         {/* Desktop Video Background */}
         <div className="hidden md:block absolute inset-0 w-full h-full">
-          {!isMobile && (
+          {!isMobile && inView && (
             <CloudinaryPlayer
               publicId="A_cinematic_highquality_202601201908_j5s2n_kkoosh"
               cloudName="dxoxdiuwr"
