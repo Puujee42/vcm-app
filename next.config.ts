@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   poweredByHeader: false,
   images: {
+    loader: 'cloudinary',
+    path: 'https://res.cloudinary.com/dxoxdiuwr/image/upload/',
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {

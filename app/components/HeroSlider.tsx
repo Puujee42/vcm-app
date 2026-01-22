@@ -128,10 +128,10 @@ const Hero = () => {
         {/* Mobile Static Image Background */}
         <div className="block md:hidden absolute inset-0 w-full h-full">
           <Image
-            src="https://res.cloudinary.com/dxoxdiuwr/video/upload/f_auto,q_auto:eco,so_0,w_600/v1/A_cinematic_highquality_202601201908_j5s2n_kkoosh.jpg"
+            src="A_cinematic_highquality_202601201908_j5s2n_kkoosh"
             alt="Hero Background"
             fill
-            quality={60}
+            quality={50}
             className="object-cover opacity-50 scale-105"
             priority
             loading="eager"

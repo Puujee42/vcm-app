@@ -16,7 +16,7 @@ const CloudinaryPlayer = ({ publicId, className, cloudName = process.env.NEXT_PU
     // vc_auto: Automatic video codec selection (h265/vp9/etc if supported)
     // w_800,c_limit: Limit width to 800px for background use to drastically reduce file size
     
-    const posterUrl = `${baseUrl}/q_auto:best,f_auto,so_0,w_1000/${publicId}.jpg`;
+    const posterUrl = `https://res.cloudinary.com/${cName}/image/upload/q_auto:best,f_auto,so_0,w_1000/${publicId}.jpg`;
 
     return (
         <div className={`${className} relative overflow-hidden`}>
@@ -26,11 +26,11 @@ const CloudinaryPlayer = ({ publicId, className, cloudName = process.env.NEXT_PU
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="none"
                 poster={posterUrl}
                 style={{ objectFit: 'cover' }}
-                // @ts-ignore - fetchpriority is a valid attribute but React types might not have it yet
-                fetchpriority="high" 
+                // @ts-ignore
+                fetchpriority="low" 
             >
                 {/* Prefer WebM for better compression/quality ratio on supported browsers */}
                 <source src={`${baseUrl}/q_auto:eco,vc_auto,w_800,c_limit,f_webm/${publicId}.webm`} type="video/webm" />
