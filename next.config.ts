@@ -34,6 +34,14 @@ const nextConfig: NextConfig = {
       'react-icons/fa',
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/rust/:path*',
+        destination: 'http://localhost:8080/:path*', // Proxy to Rust service
+      },
+    ];
+  },
 };
 
 export default nextConfig;
