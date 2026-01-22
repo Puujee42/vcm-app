@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { useScroll, useTransform, Variants, useSpring } from "framer-motion";
-import { Motion as motion } from "./MotionProxy";
+import { useIsMobile, Motion as motion } from "./MotionProxy";
 import CountUp from "react-countup";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
@@ -29,27 +29,37 @@ const COLORS = {
   SLATE: "#64748B",
 };
 
+const ParallaxBackground = ({ containerRef }: { containerRef: React.RefObject<any> }) => {
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const yBackground = useSpring(useTransform(scrollYProgress, [0, 1], [0, 150]), springConfig);
+
+  return (
+    <motion.div
+      style={{ y: yBackground }}
+      className="absolute -top-[20%] -right-[10%] w-[1000px] h-[1000px] bg-gradient-to-b from-red-100/40 via-orange-50/20 to-transparent rounded-full blur-[100px] mix-blend-multiply"
+    />
+  );
+};
+
 const UsSection = () => {
   const { language } = useLanguage(); // "mn" or "en"
   const containerRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // ─── Parallax & Scroll Hooks (Desktop only) ───
+  // We use a separate component for Background to keep it clean.
+  // For the image parallax, we'll conditionally use the hooks or just use values.
 
-  // ─── Parallax & Scroll Hooks ───
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Soft physics for parallax
   const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-  const yBackground = useSpring(useTransform(scrollYProgress, [0, 1], [0, 150]), springConfig);
   const yImage = useSpring(useTransform(scrollYProgress, [0, 1], [50, -50]), springConfig);
   const rotateImage = useTransform(scrollYProgress, [0, 1], [-3, 3]);
 
@@ -131,19 +141,12 @@ const UsSection = () => {
         {/* Soft Noise Overlay */}
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40 mix-blend-soft-light" />
 
-        {/* Animated Orbs - DISABLED ON MOBILE */}
-        {!isMobile && (
-          <>
-            <motion.div
-              style={{ y: yBackground }}
-              className="absolute -top-[20%] -right-[10%] w-[1000px] h-[1000px] bg-gradient-to-b from-red-100/40 via-orange-50/20 to-transparent rounded-full blur-[100px] mix-blend-multiply"
-            />
-            <motion.div
-              animate={{ scale: [1, 1.1, 1], rotate: [0, 45, 0] }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute top-[30%] -left-[20%] w-[800px] h-[800px] bg-gradient-to-tr from-green-100/30 to-blue-50/20 rounded-full blur-[100px] mix-blend-multiply"
-            />
-          </>
+        {/* Parallax Background - Only Desktop */}
+        {!isMobile && <ParallaxBackground containerRef={containerRef} />}
+
+        {/* Static Orb for Mobile */}
+        {isMobile && (
+          <div className="absolute -top-[10%] -right-[10%] w-[600px] h-[600px] bg-red-100/20 rounded-full blur-[80px]" />
         )}
       </div>
 

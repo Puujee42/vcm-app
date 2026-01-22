@@ -20,11 +20,12 @@ import { Motion as motion } from "./MotionProxy";
 import { useTheme } from "next-themes";
 import { useLanguage } from "../context/LanguageContext";
 import dynamic from "next/dynamic";
+import { useIsMobile } from "./MotionProxy";
 
 // Dynamically import Clerk components to reduce initial JS bundle
-const AuthActions = dynamic(() => import("./AuthActions"), { 
+const AuthActions = dynamic(() => import("./AuthActions"), {
   ssr: false,
-  loading: () => <div className="w-[120px] h-9" /> 
+  loading: () => <div className="w-[120px] h-9" />
 });
 
 // --- COLOR PALETTE CONFIGURATION ---
@@ -82,23 +83,7 @@ export default function Navbar() {
   const { language: lang, setLanguage } = useLanguage();
   const { resolvedTheme, setTheme } = useTheme();
   const { scrollY } = useScroll();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    const checkMobile = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        setIsMobile(window.innerWidth < 768);
-      }, 150);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-      clearTimeout(timeoutId);
-    };
-  }, []);
+  const isMobile = useIsMobile();
 
   useEffect(() => setMounted(true), []);
 
@@ -307,63 +292,63 @@ export default function Navbar() {
           transform-gpu grid grid-cols-5 items-end justify-between w-full max-w-[420px] px-1 py-3 pb-3 rounded-[2rem] border shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] backdrop-blur-lg transition-all duration-700
           ${isDark ? "bg-[#0F172A]/95 border-white/10 shadow-black text-slate-400" : "bg-white/95 border-slate-200 shadow-slate-200/50 text-slate-500"}
         `}>
-                      {mobileNav.map((item, index) => {
-                      const isActive = pathname === item.href;
-          
-                      // Central Floating Action Button
-                      if (item.isMain) {
-                        return (
-                          <div key={item.id} className="relative -top-8 flex flex-col items-center justify-end h-full">
-                            <Link href={item.href} className="flex flex-col items-center">
-                              <motion.div
-                                whileTap={{ scale: 0.9 }}
-                                className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl relative z-10 text-white border-4 border-[#FDFBF7]"
-                                style={{ backgroundColor: BRAND.RED }}
-                              >
-                                <item.icon size={24} strokeWidth={2.5} />
-                                {/* Glow Ring - DISABLED ON MOBILE */}
-                                {!isMobile && (
-                                  <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: BRAND.RED }} />
-                                )}
-                              </motion.div>
-          
-                              {/* Label for Main Button */}
-                              <span
-                                className={`mt-2 text-[9px] font-bold uppercase tracking-wide transition-colors duration-300
+          {mobileNav.map((item, index) => {
+            const isActive = pathname === item.href;
+
+            // Central Floating Action Button
+            if (item.isMain) {
+              return (
+                <div key={item.id} className="relative -top-8 flex flex-col items-center justify-end h-full">
+                  <Link href={item.href} className="flex flex-col items-center">
+                    <motion.div
+                      whileTap={{ scale: 0.9 }}
+                      className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl relative z-10 text-white border-4 border-[#FDFBF7]"
+                      style={{ backgroundColor: BRAND.RED }}
+                    >
+                      <item.icon size={24} strokeWidth={2.5} />
+                      {/* Glow Ring - DISABLED ON MOBILE */}
+                      {!isMobile && (
+                        <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: BRAND.RED }} />
+                      )}
+                    </motion.div>
+
+                    {/* Label for Main Button */}
+                    <span
+                      className={`mt-2 text-[9px] font-bold uppercase tracking-wide transition-colors duration-300
                                 ${isActive ? "text-[#E31B23]" : "opacity-80"}`}
-                                style={{ color: isActive ? BRAND.RED : undefined }}
-                              >
-                                {item.label[lang]}
-                              </span>
-                            </Link>
-                          </div>
-                        );
-                      }
-          
-                      // Standard Icons with Labels
-                      return (
-                        <Link
-                          key={item.id}
-                          href={item.href}
-                          className="flex flex-col items-center justify-center gap-1 relative group p-1"
-                        >
-                          {/* Icon */}
-                          <div
-                            className={`transition-[transform,color,opacity] duration-300 ${isActive ? "-translate-y-1" : "opacity-70"}`}
-                            style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
-                          >
-                            <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
-                          </div>
-          
-                          {/* Text Label */}
-                          <span
-                            className={`text-[9px] font-bold leading-none tracking-wide transition-[color,opacity] duration-300 
+                      style={{ color: isActive ? BRAND.RED : undefined }}
+                    >
+                      {item.label[lang]}
+                    </span>
+                  </Link>
+                </div>
+              );
+            }
+
+            // Standard Icons with Labels
+            return (
+              <Link
+                key={item.id}
+                href={item.href}
+                className="flex flex-col items-center justify-center gap-1 relative group p-1"
+              >
+                {/* Icon */}
+                <div
+                  className={`transition-[transform,color,opacity] duration-300 ${isActive ? "-translate-y-1" : "opacity-70"}`}
+                  style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
+                >
+                  <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                </div>
+
+                {/* Text Label */}
+                <span
+                  className={`text-[9px] font-bold leading-none tracking-wide transition-[color,opacity] duration-300 
                             ${isActive ? "opacity-100" : "opacity-70 group-hover:opacity-100"}`}
-                            style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
-                          >
-                            {item.label[lang]}
-                          </span>
-                          {/* Active Indicator Dot */}
+                  style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
+                >
+                  {item.label[lang]}
+                </span>
+                {/* Active Indicator Dot */}
                 {isActive && (
                   <motion.div
                     layoutId="activeDot"

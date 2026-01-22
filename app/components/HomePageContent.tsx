@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import LazySection from "./LazySection";
 
 const HeroSlider = dynamic(() => import("./HeroSlider"), { ssr: true });
 const Hero = dynamic(() => import("./Hero"), { ssr: false });
@@ -19,18 +20,31 @@ export default function HomePageContent() {
       <Suspense fallback={<div className="w-full h-[95vh] bg-slate-50 animate-pulse" />}>
         <Hero />
       </Suspense>
-      <Suspense fallback={<div className="w-full h-[800px] bg-slate-50 animate-pulse" />}>
-        <UsSection />
-      </Suspense>
-      <Suspense fallback={<div className="w-full h-[700px] bg-slate-50 animate-pulse" />}>
-        <EventsSection />
-      </Suspense>
-      <Suspense fallback={<div className="w-full h-[600px] bg-slate-50 animate-pulse" />}>
-        <Expectations />
-      </Suspense>
-      <Suspense fallback={<div className="w-full h-[1200px] bg-slate-50 animate-pulse" />}>
-        <WhyChooseUs />
-      </Suspense>
+
+      <LazySection placeholder={<div className="w-full h-[800px] bg-slate-50 animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-[800px] bg-slate-50 animate-pulse" />}>
+          <UsSection />
+        </Suspense>
+      </LazySection>
+
+      <LazySection placeholder={<div className="w-full h-[700px] bg-slate-50 animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-[700px] bg-slate-50 animate-pulse" />}>
+          <EventsSection />
+        </Suspense>
+      </LazySection>
+
+      <LazySection placeholder={<div className="w-full h-[600px] bg-slate-50 animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-[600px] bg-slate-50 animate-pulse" />}>
+          <Expectations />
+        </Suspense>
+      </LazySection>
+
+      <LazySection placeholder={<div className="w-full h-[1200px] bg-slate-50 animate-pulse" />}>
+        <Suspense fallback={<div className="w-full h-[1200px] bg-slate-50 animate-pulse" />}>
+          <WhyChooseUs />
+        </Suspense>
+      </LazySection>
     </>
   );
 }
+

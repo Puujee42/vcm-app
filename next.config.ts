@@ -36,6 +36,8 @@ const nextConfig: NextConfig = {
       'react-icons',
       '@clerk/nextjs',
       'react-icons/fa',
+      'react-countup',
+      'react-type-animation'
     ],
   },
   async rewrites() {

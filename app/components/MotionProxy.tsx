@@ -4,13 +4,27 @@ import { m, MotionProps } from "framer-motion";
 import React, { useEffect, useState, useMemo } from "react";
 
 // Hook to detect mobile
-const useIsMobile = () => {
-    const [isMobile, setIsMobile] = useState(false);
+// Optimization: Use a single listener for all motion components
+let globalIsMobile = false;
+const listeners = new Set<(isMobile: boolean) => void>();
+
+if (typeof window !== 'undefined') {
+    const mql = window.matchMedia('(max-width: 767px)');
+    globalIsMobile = mql.matches;
+    mql.addEventListener('change', (e) => {
+        globalIsMobile = e.matches;
+        listeners.forEach(l => l(globalIsMobile));
+    });
+}
+
+export const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(globalIsMobile);
     useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth < 768);
-        check();
-        window.addEventListener("resize", check);
-        return () => window.removeEventListener("resize", check);
+        const handler = (val: boolean) => setIsMobile(val);
+        listeners.add(handler);
+        return () => {
+            listeners.delete(handler);
+        };
     }, []);
     return isMobile;
 };
@@ -54,7 +68,7 @@ const motionProps = new Set([
     "onTapCancel",
     "onHoverStart",
     "onHoverEnd",
-    "viewport", 
+    "viewport",
 ]);
 
 // Helper to filter props
@@ -74,7 +88,7 @@ const componentCache: Record<string, React.ForwardRefExoticComponent<any>> = {};
 const Motion = new Proxy(m, {
     get: (target: any, prop: string) => {
         if (typeof prop !== 'string') return target[prop];
-        
+
         if (componentCache[prop]) {
             return componentCache[prop];
         }

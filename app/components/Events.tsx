@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -19,7 +19,7 @@ import {
   useTransform,
   AnimatePresence
 } from "framer-motion";
-import { Motion as motion } from "./MotionProxy";
+import { useIsMobile, Motion as motion } from "./MotionProxy";
 import { useTheme } from "next-themes";
 // Mock context if not available
 // import { useLanguage } from "../context/LanguageContext";
@@ -54,7 +54,9 @@ const BLOG_CATEGORIES = [
 ];
 
 // --- SUB-COMPONENT: BRANDED CARD ---
-const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
+
+// Sub-component for desktop-only interactive effects to save mobile CPU
+const InteractiveCardWrapper = ({ children, isMobile }: { children: (rotateX: any, rotateY: any, handleMouseMove: any, handleMouseLeave: any) => React.ReactNode, isMobile: boolean }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -71,6 +73,10 @@ const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
   };
   const handleMouseLeave = () => { x.set(0); y.set(0); };
 
+  return children(rotateX, rotateY, handleMouseMove, handleMouseLeave);
+};
+
+const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
   // Calculate date client-side to avoid hydration mismatch
   const [dateObj, setDateObj] = useState({ day: "00", month: "..." });
 
@@ -87,7 +93,7 @@ const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
   const isBlog = type === 'blogs';
   const authorName = typeof item.author === 'string' ? item.author : (item.author?.[lang] || item.author?.en);
 
-  return (
+  const renderCard = (rotateX: any = 0, rotateY: any = 0, handleMouseMove?: any, handleMouseLeave?: any) => (
     <motion.div
       layout
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -185,6 +191,14 @@ const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
       </div>
     </motion.div>
   );
+
+  if (isMobile) return renderCard();
+
+  return (
+    <InteractiveCardWrapper isMobile={isMobile}>
+      {(rotateX, rotateY, onMouseMove, onMouseLeave) => renderCard(rotateX, rotateY, onMouseMove, onMouseLeave)}
+    </InteractiveCardWrapper>
+  );
 };
 
 // --- MAIN SECTION ---
@@ -199,14 +213,10 @@ export default function LatestUpdatesSection() {
   const [events, setEvents] = useState<any[]>([]);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setMounted(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Theme check

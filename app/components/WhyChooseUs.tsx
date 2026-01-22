@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { Motion as motion } from "./MotionProxy";
+import { useIsMobile, Motion as motion } from "./MotionProxy";
 import {
   FaShieldAlt,
   FaHeadset,
@@ -31,44 +31,57 @@ interface WhyChooseUsProps {
   dictionary?: any;
 }
 
-const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ dictionary }) => {
-  // Safe fallback if dictionary is undefined
-  const t = dictionary || {};
-
-  const containerRef = useRef(null);
-
-  // Parallax Background
+const DreamyAtmosphere = ({ containerRef }: { containerRef: React.RefObject<any> }) => {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
   const yBg = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacityBg = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3]);
 
   return (
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+
+      {/* Soft Pink Orb */}
+      <motion.div
+        style={{ y: yBg, opacity: opacityBg }}
+        className="absolute -top-[10%] -left-[10%] w-[800px] h-[800px] rounded-full blur-[120px] will-change-transform"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className="w-full h-full bg-gradient-to-br from-rose-200 to-transparent" />
+      </motion.div>
+
+      {/* Soft Teal Orb */}
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], [0, 50]) }}
+        className="absolute top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full blur-[100px] will-change-transform"
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      >
+        <div className="w-full h-full bg-gradient-to-bl from-teal-100 to-transparent" />
+      </motion.div>
+    </div>
+  );
+};
+
+const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ dictionary }) => {
+  // Safe fallback if dictionary is undefined
+  const t = dictionary || {};
+
+  const containerRef = useRef(null);
+  const isMobile = useIsMobile();
+
+  return (
     <section ref={containerRef} className="py-24 md:py-40 bg-slate-50 relative overflow-hidden selection:bg-rose-200 selection:text-rose-900">
 
       {/* ─── DREAMY ATMOSPHERE (Bright & Airy) ─── */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+      {!isMobile && <DreamyAtmosphere containerRef={containerRef} />}
+      {isMobile && (
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+          <div className="absolute -top-[10%] -left-[10%] w-[400px] h-[400px] bg-rose-100/20 rounded-full blur-[60px]" />
+        </div>
+      )}
 
-        {/* Soft Pink Orb */}
-        <motion.div
-          style={{ y: yBg, opacity: opacityBg }}
-          className="absolute -top-[10%] -left-[10%] w-[800px] h-[800px] rounded-full blur-[120px] will-change-transform"
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <div className="w-full h-full bg-gradient-to-br from-rose-200 to-transparent" />
-        </motion.div>
-
-        {/* Soft Teal Orb */}
-        <motion.div
-          style={{ y: useTransform(scrollYProgress, [0, 1], [0, 50]) }}
-          className="absolute top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full blur-[100px] will-change-transform"
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        >
-          <div className="w-full h-full bg-gradient-to-bl from-teal-100 to-transparent" />
-        </motion.div>
-      </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
 
