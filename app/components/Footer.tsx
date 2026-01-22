@@ -236,7 +236,7 @@ const SectionHeader = ({ color, label }: { color: string, label: string }) => (
         '--tw-ring-color': color
       } as React.CSSProperties}
     />
-    <h4 className="text-xs font-black uppercase tracking-[0.15em]" style={{ color }}>{label}</h4>
+    <h3 className="text-xs font-black uppercase tracking-[0.15em]" style={{ color }}>{label}</h3>
   </div>
 );
 
@@ -267,7 +267,7 @@ const ContactItem = ({ icon: Icon, title, value, isDark, bgColor, textColor }: {
       <Icon size={18} />
     </div>
     <div className="min-w-0">
-      <p className="text-[10px] font-bold uppercase opacity-50 mb-0.5">{title}</p>
+      <p className="text-[10px] font-bold uppercase opacity-70 mb-0.5">{title}</p>
       <p className={`text-sm font-bold truncate transition-colors duration-300 group-hover:${textColor} ${isDark ? "text-slate-200" : "text-slate-800"}`}>
         {value}
       </p>

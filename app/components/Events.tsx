@@ -357,7 +357,7 @@ export default function LatestUpdatesSection() {
                   className={`
                        relative whitespace-nowrap px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all flex-shrink-0 border
                        ${isActive
-                      ? "text-white border-transparent"
+                      ? "text-slate-900 border-transparent"
                       : (isDark ? "text-slate-400 border-white/10 hover:border-white/30" : "text-slate-500 border-slate-200 hover:border-slate-300 bg-white")}
                     `}
                   style={{ backgroundColor: isActive ? BRAND.GREEN : 'transparent' }}

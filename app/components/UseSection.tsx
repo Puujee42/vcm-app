@@ -322,12 +322,12 @@ const UsSection = () => {
                   }`}
               />
 
-              <h4 className="text-4xl lg:text-5xl font-black text-slate-800 tracking-tight mb-2">
+              <div className="text-4xl lg:text-5xl font-black text-slate-800 tracking-tight mb-2">
                 <CountUp end={stat.val} duration={2.5} enableScrollSpy scrollSpyOnce />
                 <span className={`text-2xl ml-0.5 ${idx % 2 === 0 ? 'text-red-500' : 'text-green-500'}`}>
                   {stat.suffix}
                 </span>
-              </h4>
+              </div>
               <p className="text-xs font-bold text-slate-600 uppercase tracking-widest group-hover:text-slate-800 transition-colors">
                 {stat.label}
               </p>

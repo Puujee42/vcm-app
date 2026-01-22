@@ -296,7 +296,7 @@ const HeroSection = () => {
                 <div className="flex -space-x-2">
                   <div className="w-8 h-8 rounded-full bg-slate-200 border-2 border-white" />
                   <div className="w-8 h-8 rounded-full bg-slate-300 border-2 border-white" />
-                  <div className="w-8 h-8 rounded-full bg-slate-400 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white">500+</div>
+                  <div className="w-8 h-8 rounded-full bg-slate-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white">500+</div>
                 </div>
                 <div className="text-xs font-semibold text-slate-500">
                   Trusted by families & <br /> students worldwide.

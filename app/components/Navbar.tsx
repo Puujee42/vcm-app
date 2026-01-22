@@ -166,7 +166,7 @@ export default function Navbar() {
                         ? (isDark
                           ? "bg-[#00C896]/10 text-[#00C896] shadow-[0_0_15px_rgba(0,200,150,0.5)]"
                           : "bg-white text-[#00C896] shadow-[0_0_15px_rgba(0,200,150,0.4)]")
-                        : "opacity-60 hover:opacity-100 hover:text-[#00C896] hover:bg-[#00C896]/5 hover:shadow-[0_0_20px_rgba(0,200,150,0.6)]"}`
+                        : "opacity-80 hover:opacity-100 hover:text-[#00C896] hover:bg-[#00C896]/5 hover:shadow-[0_0_20px_rgba(0,200,150,0.6)]"}`
                     }
                   >
                     {item.name[lang]}
