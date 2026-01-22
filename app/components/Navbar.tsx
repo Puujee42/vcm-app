@@ -265,14 +265,13 @@ export default function Navbar() {
       {/* 2. MOBILE TOP BAR                                         */}
       {/* ========================================================= */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-[100] px-5 py-4 flex justify-between items-center pointer-events-none">
-        {/* Logo Left */}
         <Link href="/" className="pointer-events-auto">
           <div
             style={{ WebkitBackdropFilter: "blur(12px)" }}
-            className={`transform-gpu flex items-center gap-2 p-1.5 pr-4 rounded-full backdrop-blur-md border shadow-2xl transition-all ${isDark ? "bg-black/80 border-white/10" : "bg-white/90 border-slate-100"
+            className={`transform-gpu flex items-center gap-2 p-1.5 pr-4 rounded-full backdrop-blur-md border shadow-2xl transition-[background-color,border-color,box-shadow] duration-500 ${isDark ? "bg-black/80 border-white/10" : "bg-white/90 border-slate-100"
               }`}>
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/50 bg-white">
-              <Image src="/image.png" alt="Logo" fill className="object-cover" />
+              <Image src="/image.png" alt="Logo" fill unoptimized className="object-cover" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: BRAND.RED }}>
               AuPair
@@ -308,64 +307,63 @@ export default function Navbar() {
           transform-gpu grid grid-cols-5 items-end justify-between w-full max-w-[420px] px-1 py-3 pb-3 rounded-[2rem] border shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] backdrop-blur-lg transition-all duration-700
           ${isDark ? "bg-[#0F172A]/95 border-white/10 shadow-black text-slate-400" : "bg-white/95 border-slate-200 shadow-slate-200/50 text-slate-500"}
         `}>
-          {mobileNav.map((item, index) => {
-            const isActive = pathname === item.href;
-
-            // Central Floating Action Button
-            if (item.isMain) {
-              return (
-                <div key={item.id} className="relative -top-8 flex flex-col items-center justify-end h-full">
-                  <Link href={item.href} className="flex flex-col items-center">
-                    <motion.div
-                      whileTap={{ scale: 0.9 }}
-                      className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl relative z-10 text-white border-4 border-[#FDFBF7]"
-                      style={{ backgroundColor: BRAND.RED }}
-                    >
-                      <item.icon size={24} strokeWidth={2.5} />
-                      {/* Glow Ring - DISABLED ON MOBILE */}
-                      {!isMobile && (
-                        <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: BRAND.RED }} />
-                      )}
-                    </motion.div>
-
-                    {/* Label for Main Button */}
-                    <span
-                      className={`mt-2 text-[9px] font-bold uppercase tracking-wide transition-colors duration-300
-                      ${isActive ? "text-[#E31B23]" : "opacity-80"}`}
-                      style={{ color: isActive ? BRAND.RED : undefined }}
-                    >
-                      {item.label[lang]}
-                    </span>
-                  </Link>
-                </div>
-              );
-            }
-
-            // Standard Icons with Labels
-            return (
-              <Link
-                key={item.id}
-                href={item.href}
-                className="flex flex-col items-center justify-center gap-1 relative group p-1"
-              >
-                {/* Icon */}
-                <div
-                  className={`transition-all duration-300 ${isActive ? "-translate-y-1" : "opacity-70"}`}
-                  style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
-                >
-                  <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
-                </div>
-
-                {/* Text Label */}
-                <span
-                  className={`text-[9px] font-bold leading-none tracking-wide transition-all duration-300 
-                  ${isActive ? "opacity-100" : "opacity-70 group-hover:opacity-100"}`}
-                  style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
-                >
-                  {item.label[lang]}
-                </span>
-
-                {/* Active Indicator Dot */}
+                      {mobileNav.map((item, index) => {
+                      const isActive = pathname === item.href;
+          
+                      // Central Floating Action Button
+                      if (item.isMain) {
+                        return (
+                          <div key={item.id} className="relative -top-8 flex flex-col items-center justify-end h-full">
+                            <Link href={item.href} className="flex flex-col items-center">
+                              <motion.div
+                                whileTap={{ scale: 0.9 }}
+                                className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl relative z-10 text-white border-4 border-[#FDFBF7]"
+                                style={{ backgroundColor: BRAND.RED }}
+                              >
+                                <item.icon size={24} strokeWidth={2.5} />
+                                {/* Glow Ring - DISABLED ON MOBILE */}
+                                {!isMobile && (
+                                  <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: BRAND.RED }} />
+                                )}
+                              </motion.div>
+          
+                              {/* Label for Main Button */}
+                              <span
+                                className={`mt-2 text-[9px] font-bold uppercase tracking-wide transition-colors duration-300
+                                ${isActive ? "text-[#E31B23]" : "opacity-80"}`}
+                                style={{ color: isActive ? BRAND.RED : undefined }}
+                              >
+                                {item.label[lang]}
+                              </span>
+                            </Link>
+                          </div>
+                        );
+                      }
+          
+                      // Standard Icons with Labels
+                      return (
+                        <Link
+                          key={item.id}
+                          href={item.href}
+                          className="flex flex-col items-center justify-center gap-1 relative group p-1"
+                        >
+                          {/* Icon */}
+                          <div
+                            className={`transition-[transform,color,opacity] duration-300 ${isActive ? "-translate-y-1" : "opacity-70"}`}
+                            style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
+                          >
+                            <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                          </div>
+          
+                          {/* Text Label */}
+                          <span
+                            className={`text-[9px] font-bold leading-none tracking-wide transition-[color,opacity] duration-300 
+                            ${isActive ? "opacity-100" : "opacity-70 group-hover:opacity-100"}`}
+                            style={{ color: isActive ? BRAND.GREEN : "currentColor" }}
+                          >
+                            {item.label[lang]}
+                          </span>
+                          {/* Active Indicator Dot */}
                 {isActive && (
                   <motion.div
                     layoutId="activeDot"
