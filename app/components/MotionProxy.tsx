@@ -1,6 +1,6 @@
 "use client";
 
-import { motion as framerMotion, MotionProps } from "framer-motion";
+import { m, MotionProps } from "framer-motion";
 import React, { useEffect, useState, ForwardRefExoticComponent, RefAttributes } from "react";
 
 // Hook to detect mobile
@@ -69,7 +69,7 @@ const filterProps = (props: any) => {
 };
 
 // Create a proxy that intercepts property access
-const Motion = new Proxy(framerMotion, {
+const Motion = new Proxy(m, {
     get: (target: any, prop: string) => {
         // Return a Functional Component that decides what to render
         const Component = React.forwardRef((props: any, ref: any) => {
@@ -84,6 +84,10 @@ const Motion = new Proxy(framerMotion, {
 
             // If desktop, render the original motion component
             const MotionComponent = target[prop];
+            // Safety check in case m[prop] is undefined
+            if (!MotionComponent) {
+                return React.createElement(prop, props, props.children);
+            }
             return <MotionComponent {...props} ref={ref} />;
         });
 
