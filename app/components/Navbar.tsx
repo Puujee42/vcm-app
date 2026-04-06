@@ -5,11 +5,7 @@ import { Link, usePathname } from "@/navigation";
 import Image from "next/image";
 import {
   Home,
-  Globe,
-  Sun,
-  Moon,
   BookOpen,
-  CalendarClock,
   ShoppingBag,
   Ticket,
   Plane,
@@ -65,12 +61,7 @@ export default function Navbar() {
     { name: t("shop"), href: "/shop" },
   ];
 
-  const mobileNav = [
-    { id: "home", icon: Home, href: "/", label: t("home") },
-    { id: "programs", icon: Plane, href: "/programs", label: t("program") },
-    { id: "booking", icon: ShoppingBag, href: "/shop", label: t("shop"), isMain: true },
-    { id: "events", icon: Ticket, href: "/events", label: t("events") },
-  ];
+
 
   const VCM_PROGRAMS = [
     { code: "AND", name: t("prog_and"), desc: t("prog_and_desc"), href: "/programs/and", flag: "🤝" },
@@ -177,54 +168,71 @@ export default function Navbar() {
         </nav>
       </motion.header>
 
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-[100] px-5 py-4 flex justify-between items-center pointer-events-none">
-        <Link href="/" className="pointer-events-auto">
-          <div style={{ WebkitBackdropFilter: "blur(16px)" }} className="transform-gpu flex items-center gap-2 p-1.5 pr-4 rounded-full backdrop-blur-xl border shadow-xl transition-all duration-500 bg-white/80 border-white/50 text-slate-800 drop-shadow-sm">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/50 bg-white">
-              <Image
-                src="https://res.cloudinary.com/dc127wztz/image/upload/q_auto/f_auto/v1775390339/logos_xs3a5r.png"
-                alt="Logo"
-                fill
-                priority
-                sizes="32px"
-                className="object-cover"
-                quality={75}
-              />
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-[100] pointer-events-none" style={{ paddingTop: "env(safe-area-inset-top)" }}>
+        <div className="flex justify-between items-center px-4 py-2.5 pointer-events-auto">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div style={{ WebkitBackdropFilter: "blur(20px)" }} className="flex items-center gap-2.5 py-1.5 px-2 pr-4 rounded-full backdrop-blur-xl bg-white/90 border border-slate-100 shadow-sm">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden bg-white">
+                <Image
+                  src="https://res.cloudinary.com/dc127wztz/image/upload/q_auto/f_auto/v1775390339/logos_xs3a5r.png"
+                  alt="Logo"
+                  fill
+                  priority
+                  sizes="32px"
+                  className="object-cover"
+                  quality={75}
+                />
+              </div>
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-800">{t("logo")}</span>
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-800 font-sans">{t("logo")}</span>
-          </div>
-        </Link>
+          </Link>
 
-        <div className="flex items-center gap-2 pointer-events-auto min-w-[120px] justify-end">
-          <LanguageToggle />
-          <AuthActions BRAND={BRAND} isMobile={true} />
+          <div className="flex items-center gap-1.5">
+            <LanguageToggle />
+            <AuthActions BRAND={BRAND} isMobile={true} />
+          </div>
         </div>
       </div>
 
-      <div className="lg:hidden fixed bottom-6 left-0 right-0 z-[100] px-2 flex justify-center">
-        <nav style={{ WebkitBackdropFilter: isMobile ? "blur(12px)" : "blur(20px)" }} className="transform-gpu grid grid-cols-5 items-end justify-between w-full max-w-[420px] px-1 py-3 pb-3 rounded-[2rem] border shadow-2xl backdrop-blur-2xl transition-all duration-700 bg-white/90 border-slate-200 text-slate-500 drop-shadow-xl">
-          {mobileNav.map((item) => {
-            const isActive = pathname === item.href;
-            if (item.isMain) {
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[100]">
+        <nav
+          style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
+          className="bg-white/95 backdrop-blur-xl border-t border-slate-100 shadow-[0_-1px_3px_rgba(0,0,0,0.04)]"
+        >
+          <div className="grid grid-cols-5 w-full">
+            {[
+              { id: "home", icon: Home, href: "/", label: t("home") },
+              { id: "programs", icon: Plane, href: "/programs", label: t("program") },
+              { id: "shop", icon: ShoppingBag, href: "/shop", label: t("shop") },
+              { id: "events", icon: Ticket, href: "/events", label: t("events") },
+              { id: "lessons", icon: BookOpen, href: "/lessons", label: t("lessons") },
+            ].map((item) => {
+              const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
               return (
-                <div key={item.id} className="relative -top-8 flex flex-col items-center justify-end h-full">
-                  <Link href={item.href} className="flex flex-col items-center">
-                    <motion.div whileTap={{ scale: 0.9 }} className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl relative z-10 text-white border-4 border-white" style={{ backgroundColor: BRAND.RED }}>
-                      <item.icon size={24} strokeWidth={2.5} />
-                    </motion.div>
-                    <span className={`mt-2 text-[9px] font-bold uppercase tracking-wide transition-colors duration-300 ${isActive ? "text-sky-400" : "opacity-80"}`} style={{ color: isActive ? BRAND.RED : undefined }}>{item.label}</span>
-                  </Link>
-                </div>
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  className="flex flex-col items-center justify-center pt-2 pb-1 relative"
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="mobileTabIndicator"
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-sky-500"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <item.icon
+                    size={20}
+                    strokeWidth={isActive ? 2.2 : 1.6}
+                    className={`transition-colors duration-200 ${isActive ? "text-sky-500" : "text-slate-400"}`}
+                  />
+                  <span className={`text-[10px] mt-1 font-semibold leading-none transition-colors duration-200 ${isActive ? "text-sky-600" : "text-slate-400"}`}>
+                    {item.label}
+                  </span>
+                </Link>
               );
-            }
-            return (
-              <Link key={item.id} href={item.href} className="flex flex-col items-center justify-center gap-1 relative group p-1">
-                <div className={`transition-[transform,color,opacity] duration-300 ${isActive ? "-translate-y-1" : "opacity-70"}`} style={{ color: isActive ? BRAND.GREEN : "currentColor" }}><item.icon size={20} strokeWidth={isActive ? 2.5 : 2} /></div>
-                <span className={`text-[9px] font-bold leading-none tracking-wide transition-[color,opacity] duration-300 ${isActive ? "opacity-100" : "opacity-70 group-hover:opacity-100"}`} style={{ color: isActive ? BRAND.GREEN : "currentColor" }}>{item.label}</span>
-                {isActive && <motion.div layoutId="activeDot" className="absolute -top-1 w-1 h-1 rounded-full" style={{ backgroundColor: BRAND.GREEN }} />}
-              </Link>
-            );
-          })}
+            })}
+          </div>
         </nav>
       </div>
     </>

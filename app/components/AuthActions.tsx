@@ -29,7 +29,7 @@ const AuthActions = ({ BRAND, isMobile }: AuthActionsProps) => {
           <Link href="/sign-in">
             <motion.button
               whileTap={{ scale: 0.9 }}
-              className="px-4 h-9 rounded-full text-white text-[9px] font-black tracking-widest uppercase shadow-lg shadow-red-900/30 border border-white/20 whitespace-nowrap"
+              className="px-5 h-10 rounded-full text-white text-[11px] font-black tracking-widest uppercase shadow-lg shadow-sky-500/20 border border-white/20 whitespace-nowrap"
               style={{ backgroundColor: BRAND.RED }}
             >
               {t('signIn')}

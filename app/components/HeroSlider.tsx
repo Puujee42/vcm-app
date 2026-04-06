@@ -167,7 +167,7 @@ const HeroSlider = () => {
               {/* Headline */}
               <motion.h1
                 variants={textVariants}
-                className="text-5xl md:text-7xl font-black leading-[1.1] mb-8 tracking-tight drop-shadow-sm text-slate-900"
+                className="text-3xl sm:text-5xl md:text-7xl font-black leading-[1.1] mb-6 sm:mb-8 tracking-tight drop-shadow-sm text-slate-900"
               >
                 {activeSlide.title.split(" ").map((word: string, i: number) => (
                   <span key={i} className="inline-block mr-3">
@@ -183,15 +183,15 @@ const HeroSlider = () => {
               </motion.h1>
 
               {/* Description with Vertical Accent Line */}
-              <motion.div variants={textVariants} className="flex gap-6 mb-10 pl-2">
-                <div className="w-1 rounded-full bg-gradient-to-b from-sky-500 to-transparent h-auto min-h-[60px]" />
-                <p className="text-lg md:text-xl text-slate-600 max-w-xl leading-relaxed font-medium">
+              <motion.div variants={textVariants} className="flex gap-4 sm:gap-6 mb-6 sm:mb-10 pl-2">
+                <div className="w-1 rounded-full bg-gradient-to-b from-sky-500 to-transparent h-auto min-h-[40px] sm:min-h-[60px]" />
+                <p className="text-sm sm:text-lg md:text-xl text-slate-600 max-w-xl leading-relaxed font-medium">
                   {activeSlide.desc}
                 </p>
               </motion.div>
 
               {/* Metadata Stats */}
-              <motion.div variants={textVariants} className="flex items-center gap-8 mb-10 text-sm font-bold text-slate-700">
+              <motion.div variants={textVariants} className="flex items-center gap-4 sm:gap-8 mb-6 sm:mb-10 text-xs sm:text-sm font-bold text-slate-700">
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-sky-500">
                     <FaClock />
@@ -212,7 +212,7 @@ const HeroSlider = () => {
                   <motion.button
                     whileHover={{ scale: 1.02, boxShadow: "0 20px 40px -10px rgba(14, 165, 233, 0.4)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="group relative inline-flex items-center gap-4 px-8 py-4 bg-sky-500 text-white rounded-full font-bold text-lg overflow-hidden transition-all duration-300"
+                    className="group relative inline-flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3 sm:py-4 bg-sky-500 text-white rounded-full font-bold text-sm sm:text-lg overflow-hidden transition-all duration-300"
                   >
                     <span className="relative z-10">{activeSlide.btn}</span>
                     <span className="relative z-10 p-1 bg-white/20 rounded-full group-hover:rotate-45 transition-transform duration-300">

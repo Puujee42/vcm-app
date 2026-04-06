@@ -144,7 +144,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative w-full min-h-[95vh] flex items-center bg-slate-50 overflow-hidden py-24 lg:py-0">
+    <section className="relative w-full min-h-[85vh] sm:min-h-[95vh] flex items-center bg-slate-50 overflow-hidden py-16 sm:py-24 lg:py-0">
       <div className="absolute inset-0 z-0">
         <motion.div
           animate={{ backgroundColor: active.colors.secondary }}
@@ -171,7 +171,7 @@ const HeroSection = () => {
         )}
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 h-full items-center">
+      <div className="container mx-auto px-5 sm:px-6 relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-16 h-full items-center">
         <div className="flex flex-col justify-center order-2 lg:order-1">
           <AnimatePresence mode="wait">
             <motion.div
@@ -192,7 +192,7 @@ const HeroSection = () => {
               </motion.div>
 
               <motion.div variants={textItemVariant} className="relative z-20">
-                <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tight">
+                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tight">
                   {common('explore')} <br />
                   <span className={`text-transparent bg-clip-text bg-gradient-to-r ${active.colors.gradient}`}>
                     {t(`${active.key}.title`)}
@@ -207,19 +207,19 @@ const HeroSection = () => {
                 />
               </motion.div>
 
-              <motion.div variants={textItemVariant} className="max-w-xl">
-                <h3 className="text-xl font-bold text-slate-800 mb-2">{t(`${active.key}.subtitle`)}</h3>
-                <p className="text-lg text-slate-600 leading-relaxed font-medium">
+              <motion.div variants={textItemVariant} className="space-y-5 sm:space-y-8">
+                <h3 className="text-base sm:text-xl font-bold text-slate-800 mb-1.5 sm:mb-2">{t(`${active.key}.subtitle`)}</h3>
+                <p className="text-sm sm:text-lg text-slate-600 leading-relaxed font-medium">
                   {t(`${active.key}.desc`)}
                 </p>
               </motion.div>
 
-              <motion.div variants={textItemVariant} className="flex flex-wrap items-center gap-4 pt-2">
+              <motion.div variants={textItemVariant} className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
                 <Link href={active.link}>
                   <motion.button
                     whileHover={!isMobile ? { scale: 1.05, paddingRight: "2.5rem" } : {}}
                     whileTap={{ scale: 0.95 }}
-                    className={`group relative px-8 py-4 rounded-full text-white font-bold text-lg shadow-xl overflow-hidden flex items-center transition-all bg-gradient-to-r ${active.colors.gradient}`}
+                    className={`group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full text-white font-bold text-sm sm:text-lg shadow-xl overflow-hidden flex items-center transition-all bg-gradient-to-r ${active.colors.gradient}`}
                   >
                     <span className="relative z-10">{common('startJourney')}</span>
                     <FaArrowRight className="absolute right-6 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0" />
@@ -227,7 +227,7 @@ const HeroSection = () => {
                   </motion.button>
                 </Link>
 
-                <button className="flex items-center gap-3 px-6 py-4 rounded-full bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all text-slate-600 font-bold group">
+                <button className="flex items-center gap-2.5 sm:gap-3 px-4 sm:px-6 py-3 sm:py-4 rounded-full bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all text-slate-600 font-bold group text-sm sm:text-base">
                   <div className="w-8 h-8 rounded-full flex items-center justify-center bg-slate-100 group-hover:bg-slate-900 group-hover:text-white transition-colors">
                     <FaPlayCircle size={14} />
                   </div>
@@ -249,20 +249,20 @@ const HeroSection = () => {
           </AnimatePresence>
         </div>
 
-        <div className="relative order-1 lg:order-2 h-[500px] lg:h-[600px] flex items-center justify-center lg:justify-end perspective-[2000px]">
+        <div className="relative order-1 lg:order-2 h-[380px] sm:h-[500px] lg:h-[600px] flex items-center justify-center lg:justify-end perspective-[2000px]">
           <motion.div
             key={`iso-${active.iso}`}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 0.1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.8 }}
-            className="absolute top-1/2 left-1/2 lg:left-auto lg:right-0 transform -translate-x-1/2 lg:translate-x-1/4 -translate-y-1/2 text-[12rem] lg:text-[20rem] font-black text-slate-900 pointer-events-none select-none z-0 tracking-tighter"
+            className="absolute top-1/2 left-1/2 lg:left-auto lg:right-0 transform -translate-x-1/2 lg:translate-x-1/4 -translate-y-1/2 text-[8rem] sm:text-[12rem] lg:text-[20rem] font-black text-slate-900 pointer-events-none select-none z-0 tracking-tighter"
             style={{ color: active.colors.primary }}
           >
             {active.iso}
           </motion.div>
 
-          <div className="relative w-[320px] md:w-[380px] aspect-[3/4] z-20">
+          <div className="relative w-[260px] sm:w-[320px] md:w-[380px] aspect-[3/4] z-20">
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
                 key={index}
@@ -310,14 +310,14 @@ const HeroSection = () => {
               <button
                 onClick={() => changeSlide(-1)}
                 aria-label="Previous slide"
-                className="w-14 h-14 rounded-full bg-white text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all shadow-lg hover:scale-110 active:scale-95"
+                className="w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-white text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all shadow-lg hover:scale-110 active:scale-95"
               >
                 <FaChevronLeft size={18} />
               </button>
               <button
                 onClick={() => changeSlide(1)}
                 aria-label="Next slide"
-                className="w-14 h-14 rounded-full text-white flex items-center justify-center transition-all shadow-lg hover:scale-110 active:scale-95"
+                className="w-11 h-11 sm:w-14 sm:h-14 rounded-full text-white flex items-center justify-center transition-all shadow-lg hover:scale-110 active:scale-95"
                 style={{ backgroundColor: active.colors.primary }}
               >
                 <FaChevronRight size={18} />

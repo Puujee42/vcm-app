@@ -74,7 +74,7 @@ export default function AestheticFooter() {
   const d = footerData[locale] || footerData.en;
 
   return (
-    <footer className="relative w-full pt-16 pb-8 font-sans transition-all duration-700 overflow-hidden bg-white">
+    <footer className="relative w-full pt-12 sm:pt-16 pb-24 sm:pb-8 font-sans transition-all duration-700 overflow-hidden bg-white">
 
       {/* ─── VIBRANT COLOR BLOBS (Sky Blue) ─── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -90,7 +90,7 @@ export default function AestheticFooter() {
       <div className="relative z-10 max-w-7xl mx-auto px-6">
 
         {/* ─── 1. NEWSLETTER CARD ─── */}
-        <div className="relative mb-24">
+        <div className="relative mb-12 sm:mb-24">
           <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl shadow-sky-200/50 bg-white border border-slate-50">
 
             {/* Colorful Gradient Border Effect */}
@@ -99,14 +99,14 @@ export default function AestheticFooter() {
             {/* Inner Glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 via-transparent to-blue-50/50 opacity-50" />
 
-            <div className="relative p-8 md:p-12 lg:px-16 grid lg:grid-cols-2 gap-10 items-center">
+            <div className="relative p-5 sm:p-8 md:p-12 lg:px-16 grid lg:grid-cols-2 gap-6 sm:gap-10 items-center">
 
               {/* Left Text */}
               <div className="space-y-4">
                 <span className="inline-block px-4 py-1.5 rounded-full bg-sky-50 text-sky-600 text-xs font-bold uppercase tracking-widest ring-1 ring-sky-100">
                   {d.newsletterTitle}
                 </span>
-                <h2 className="text-4xl md:text-5xl font-black leading-tight text-slate-900">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl font-black leading-tight text-slate-900">
                   {locale === 'mn' ? 'Хамтдаа' : "Don't Miss"} <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-400">
                     {locale === 'mn' ? 'Хөгжицгөөе' : 'Your Chance'}
@@ -223,7 +223,7 @@ export default function AestheticFooter() {
         </div>
 
         {/* Giant Watermark (Sky Theme) */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-full text-center pointer-events-none select-none opacity-[0.03]">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-full text-center pointer-events-none select-none opacity-[0.03] hidden sm:block">
           <span className="text-[8rem] md:text-[12rem] font-black uppercase leading-none whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-b from-sky-400 to-transparent">Volunteer</span>
         </div>
 

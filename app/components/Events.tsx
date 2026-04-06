@@ -106,7 +106,7 @@ const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={`
-        relative group rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden cursor-pointer h-full min-h-[400px] border transition-all duration-500
+        relative group rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden cursor-pointer h-full min-h-[320px] sm:min-h-[400px] border transition-all duration-500
         ${isDark
           ? "bg-slate-900/50 border-white/5 shadow-none hover:bg-slate-800"
           : "bg-white border-slate-100 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_25px_50px_-12px_rgba(14,165,233,0.15)]"
@@ -145,7 +145,7 @@ const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
       </div>
 
       {/* --- CONTENT DETAILS --- */}
-      <div className="absolute bottom-0 left-0 w-full p-8 z-20 flex flex-col justify-end h-full pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-full p-5 sm:p-8 z-20 flex flex-col justify-end h-full pointer-events-none">
         <div className="transform transition-transform duration-500 sm:group-hover:-translate-y-2 pointer-events-auto">
 
           {/* Tags / Metadata */}
@@ -166,7 +166,7 @@ const ContentCard = ({ item, lang, isDark, isMobile, type }: any) => {
           </div>
 
           {/* Title */}
-          <h3 className="text-2xl font-black leading-none tracking-tight mb-3 text-white line-clamp-2 group-hover:text-sky-300 transition-colors">
+          <h3 className="text-lg sm:text-2xl font-black leading-none tracking-tight mb-2 sm:mb-3 text-white line-clamp-2 group-hover:text-sky-300 transition-colors">
             {item.title[lang] || item.title.en}
           </h3>
 
@@ -267,7 +267,7 @@ export default function LatestUpdatesSection() {
   if (!mounted) return null;
 
   return (
-    <section className={`relative py-24 px-6 overflow-hidden transition-colors duration-700 
+    <section className={`relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden transition-colors duration-700 
       ${isDark ? "bg-slate-950" : "bg-slate-50"}`
     }>
 
@@ -309,7 +309,7 @@ export default function LatestUpdatesSection() {
       <div className="relative z-10 max-w-7xl mx-auto">
 
         {/* --- HEADER --- */}
-        <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-10 mb-16">
+        <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-6 sm:gap-10 mb-10 sm:mb-16">
 
           <div className="space-y-8">
             {/* Tabs */}
@@ -321,7 +321,7 @@ export default function LatestUpdatesSection() {
                   <button
                     key={tab.id}
                     onClick={() => { setActiveTab(tab.id as any); setFilter('all'); }}
-                    className={`relative px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all z-10
+                    className={`relative px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all z-10
                           ${isActive
                         ? "text-white"
                         : (isDark ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900")
@@ -346,7 +346,7 @@ export default function LatestUpdatesSection() {
                 key={activeTab}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`text-4xl sm:text-6xl font-black tracking-tighter leading-[0.9]
+                className={`text-2xl sm:text-4xl md:text-6xl font-black tracking-tighter leading-[0.9]
                       ${isDark ? "text-white" : "text-slate-900"}`}
               >
                 {activeTab === 'events'
@@ -393,7 +393,7 @@ export default function LatestUpdatesSection() {
           ) : filteredItems.length > 0 ? (
             <motion.div
               layout
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8"
             >
               <AnimatePresence mode="popLayout">
                 {filteredItems.map((item) => (

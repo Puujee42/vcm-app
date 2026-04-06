@@ -66,7 +66,7 @@ const WhyChooseUs = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section ref={containerRef} className="py-24 md:py-40 bg-slate-50 relative overflow-hidden selection:bg-sky-200 selection:text-sky-900">
+    <section ref={containerRef} className="py-16 sm:py-24 md:py-40 bg-slate-50 relative overflow-hidden selection:bg-sky-200 selection:text-sky-900">
 
       {/* ─── DREAMY ATMOSPHERE (Bright & Airy) ─── */}
       {!isMobile && <DreamyAtmosphere containerRef={containerRef} />}
@@ -78,10 +78,10 @@ const WhyChooseUs = () => {
       )}
 
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
 
         {/* ─── HEADER ─── */}
-        <div className="text-center mb-24 max-w-3xl mx-auto">
+        <div className="text-center mb-12 sm:mb-24 max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ const WhyChooseUs = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight"
+            className="text-2xl sm:text-4xl md:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight"
           >
             {t("title_pre")} <br />
             <span className="relative inline-block mt-2">
@@ -125,20 +125,20 @@ const WhyChooseUs = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto"
+            className="text-slate-500 text-sm sm:text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto"
           >
             {t("desc")}
           </motion.p>
         </div>
 
         {/* ─── AESTHETIC GRID ─── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 h-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 h-auto">
 
           {/* 1. GLOBAL CONNECT (White Glass) */}
           <AestheticCard className="md:col-span-2 md:row-span-2 bg-white/70">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-b from-sky-50 to-transparent rounded-full blur-3xl -z-10 opacity-60" />
 
-            <div className="p-8 h-full flex flex-col justify-between z-10">
+            <div className="p-5 sm:p-8 h-full flex flex-col justify-between z-10">
               <div>
                 <div className="flex items-center justify-between mb-8">
                   <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-lg shadow-sky-100 border border-sky-50">
@@ -155,8 +155,8 @@ const WhyChooseUs = () => {
                   </div>
                 </div>
 
-                <h3 className="text-3xl font-bold text-slate-800 mb-3">{t("card1_title")}</h3>
-                <p className="text-slate-500 font-medium leading-relaxed text-lg">
+                <h3 className="text-xl sm:text-3xl font-bold text-slate-800 mb-2 sm:mb-3">{t("card1_title")}</h3>
+                <p className="text-slate-500 font-medium leading-relaxed text-sm sm:text-lg">
                   {t("card1_desc")}
                 </p>
               </div>
@@ -173,7 +173,7 @@ const WhyChooseUs = () => {
 
           {/* 2. SUPPORT (Sky Blue Accent) */}
           <AestheticCard className="md:col-span-1 md:row-span-2 bg-gradient-to-b from-white to-sky-50/50">
-            <div className="p-8 h-full flex flex-col items-center text-center justify-center z-10">
+            <div className="p-5 sm:p-8 h-full flex flex-col items-center text-center justify-center z-10">
 
               {/* Floating Avatar Group */}
               <motion.div
@@ -196,7 +196,7 @@ const WhyChooseUs = () => {
                 </motion.div>
               </motion.div>
 
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">{t("card2_title")}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 sm:mb-3">{t("card2_title")}</h3>
               <p className="text-slate-500 text-sm mb-8 leading-relaxed">
                 {t("card2_desc")}
               </p>
@@ -209,7 +209,7 @@ const WhyChooseUs = () => {
 
           {/* 3. HELPING PEOPLE (Minimalist) */}
           <AestheticCard className="md:col-span-1 md:row-span-1 bg-white">
-            <div className="p-8 h-full flex flex-col justify-between">
+            <div className="p-5 sm:p-8 h-full flex flex-col justify-between">
               <div className="flex justify-between items-start">
                 <div className="p-3 bg-slate-50 rounded-2xl text-sky-500">
                   <FaHeart size={24} />
@@ -229,7 +229,7 @@ const WhyChooseUs = () => {
           <AestheticCard className="md:col-span-2 md:row-span-1 bg-white">
             <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-sky-400 to-sky-200" />
 
-            <div className="p-8 h-full flex items-center justify-between z-10">
+            <div className="p-5 sm:p-8 h-full flex items-center justify-between z-10">
               <div className="max-w-xs">
                 <h3 className="text-xl font-bold mb-2 flex items-center gap-3 text-slate-900">
                   <FaShieldAlt className="text-sky-500" /> {t("card4_title")}
@@ -258,7 +258,7 @@ const WhyChooseUs = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-sky-600 to-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
             <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full blur-3xl" />
 
-            <div className="relative p-8 h-full flex items-center justify-between z-10">
+            <div className="relative p-5 sm:p-8 h-full flex items-center justify-between z-10">
               <div className="flex items-center gap-6">
                 <div className="w-16 h-16 rounded-full bg-white/10 group-hover:bg-white group-hover:text-sky-600 text-white flex items-center justify-center transition-all duration-300 shadow-sm backdrop-blur-sm">
                   <FaArrowRight size={20} className="group-hover:-rotate-45 transition-transform duration-300" />

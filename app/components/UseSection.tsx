@@ -88,7 +88,7 @@ const UsSection = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative w-full py-24 lg:py-32 overflow-hidden bg-slate-50 selection:bg-red-100 selection:text-red-900">
+    <section ref={containerRef} className="relative w-full py-16 sm:py-24 lg:py-32 overflow-hidden bg-slate-50 selection:bg-red-100 selection:text-red-900">
 
       {/* ────────────────── 1. AMBIENT BACKGROUND ────────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -104,7 +104,7 @@ const UsSection = () => {
         )}
       </div>
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+      <div className="container mx-auto px-5 sm:px-6 lg:px-12 relative z-10">
 
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -127,12 +127,12 @@ const UsSection = () => {
             </motion.div>
 
             {/* Static Headline */}
-            <motion.h2 variants={textVar} className="text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] mb-6">
+            <motion.h2 variants={textVar} className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] mb-4 sm:mb-6">
               {t("sectionTitle")}
             </motion.h2>
 
             {/* Paragraphs */}
-            <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-medium mb-12">
+            <div className="space-y-4 sm:space-y-6 text-sm sm:text-lg text-slate-600 leading-relaxed font-medium mb-8 sm:mb-12">
               <motion.p variants={textVar} className="border-l-2 border-transparent hover:border-slate-300 pl-0 hover:pl-6 transition-all duration-300">
                 {t("content")}
               </motion.p>
@@ -147,36 +147,36 @@ const UsSection = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Value 1 */}
-                <div className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                  <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
-                    <FaHandsHelping size={20} />
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-3 sm:mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
+                    <FaHandsHelping size={16} />
                   </div>
                   <h4 className="font-bold text-slate-900 mb-2">{t("val1_title")}</h4>
                   <p className="text-sm text-slate-600 leading-relaxed">{t("val1_desc")}</p>
                 </div>
 
                 {/* Value 2 */}
-                <div className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                  <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
-                    <FaGlobe size={20} />
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-3 sm:mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
+                    <FaGlobe size={16} />
                   </div>
                   <h4 className="font-bold text-slate-900 mb-2">{t("val2_title")}</h4>
                   <p className="text-sm text-slate-600 leading-relaxed">{t("val2_desc")}</p>
                 </div>
 
                 {/* Value 3 */}
-                <div className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                  <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
-                    <FaUsers size={20} />
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-3 sm:mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
+                    <FaUsers size={16} />
                   </div>
                   <h4 className="font-bold text-slate-900 mb-2">{t("val3_title")}</h4>
                   <p className="text-sm text-slate-600 leading-relaxed">{t("val3_desc")}</p>
                 </div>
 
                 {/* Value 4 */}
-                <div className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                  <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
-                    <FaHeart size={20} />
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-3 sm:mb-4 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
+                    <FaHeart size={16} />
                   </div>
                   <h4 className="font-bold text-slate-900 mb-2">{t("val4_title")}</h4>
                   <p className="text-sm text-slate-600 leading-relaxed">{t("val4_desc")}</p>
@@ -252,7 +252,7 @@ const UsSection = () => {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: isMobile ? 60 : 25, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-10 -left-10 w-32 h-32 bg-sky-500 rounded-full flex items-center justify-center shadow-xl shadow-sky-500/30 border-4 border-white z-20"
+                className="absolute -top-6 -left-6 sm:-top-10 sm:-left-10 w-20 h-20 sm:w-32 sm:h-32 bg-sky-500 rounded-full flex items-center justify-center shadow-xl shadow-sky-500/30 border-2 sm:border-4 border-white z-20"
               >
                 {/* SVG Curve Text */}
                 <div className="absolute w-full h-full p-1 animate-spin-slow">
@@ -265,7 +265,7 @@ const UsSection = () => {
                     </text>
                   </svg>
                 </div>
-                <div className="font-black text-3xl text-white">20</div>
+                <div className="font-black text-xl sm:text-3xl text-white">20</div>
               </motion.div>
 
             </motion.div>
@@ -281,26 +281,26 @@ const UsSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-12 sm:mt-24 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6"
         >
           {stats.map((stat: any, idx: number) => (
             <motion.div
               key={stat.id}
               variants={cardVar}
               whileHover={!isMobile ? { y: -8 } : {}}
-              className="bg-white rounded-3xl p-8 border border-slate-100 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] transition-all duration-300 group cursor-default text-center relative overflow-hidden"
+              className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-slate-100 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] transition-all duration-300 group cursor-default text-center relative overflow-hidden"
             >
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-sky-50 text-sky-500 flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
-                <stat.icon className="text-3xl" />
+              <div className="w-10 h-10 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-6 rounded-xl sm:rounded-2xl bg-sky-50 text-sky-500 flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
+                <stat.icon className="text-xl sm:text-3xl" />
               </div>
 
-              <div className="text-4xl lg:text-5xl font-black text-slate-800 tracking-tight mb-2">
+              <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-800 tracking-tight mb-1 sm:mb-2">
                 <CountUp end={stat.val} duration={2.5} enableScrollSpy scrollSpyOnce />
-                <span className="text-2xl ml-0.5 text-sky-500">
+                <span className="text-lg sm:text-2xl ml-0.5 text-sky-500">
                   {stat.suffix}
                 </span>
               </div>
-              <p className="text-xs font-bold text-slate-600 uppercase tracking-widest group-hover:text-slate-800 transition-colors">
+              <p className="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-widest group-hover:text-slate-800 transition-colors">
                 {stat.label}
               </p>
             </motion.div>
