@@ -143,8 +143,9 @@ export default function EventsClient() {
                   <AnimatePresence mode="popLayout">
                      {filteredEvents.map((event) => {
                         const dateObj = new Date(typeof event.date === "string" ? event.date.replace(/-/g, "/") : event.date);
-                        const month = dateObj.toLocaleDateString(locale, { month: "short" }).toUpperCase();
-                        const day = dateObj.getDate();
+                        const isValidDate = !isNaN(dateObj.getTime());
+                        const month = isValidDate ? dateObj.toLocaleDateString(locale, { month: "short" }).toUpperCase() : "TBA";
+                        const day = isValidDate ? dateObj.getDate().toString() : "-";
                         const categoryLabel = t(`categories.${event.category}`);
                         const locationText = event.location[locale] || event.location["en"];
                         const titleText = event.title[locale] || event.title["en"];

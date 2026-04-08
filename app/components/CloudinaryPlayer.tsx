@@ -5,9 +5,10 @@ interface CloudinaryPlayerProps {
     className?: string;
     cloudName?: string;
     poster?: string;
+    priority?: boolean;
 }
 
-const CloudinaryPlayer = ({ publicId, className, cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME, poster }: CloudinaryPlayerProps) => {
+const CloudinaryPlayer = ({ publicId, className, cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME, poster, priority = false }: CloudinaryPlayerProps) => {
     // Fallback if no cloudName provided
     const cName = cloudName || "dxoxdiuwr"; 
     const baseUrl = `https://res.cloudinary.com/${cName}/video/upload`;
@@ -27,12 +28,12 @@ const CloudinaryPlayer = ({ publicId, className, cloudName = process.env.NEXT_PU
                 loop
                 muted
                 playsInline
-                preload="none"
+                preload={priority ? "auto" : "none"}
                 poster={posterUrl}
                 style={{ objectFit: 'cover' }}
                 // @ts-ignore
-                loading="lazy"
-                fetchPriority="low" 
+                loading={priority ? "eager" : "lazy"}
+                fetchPriority={priority ? "high" : "low"} 
             >
                 {/* Prefer WebM for better compression/quality ratio on supported browsers */}
                 <source src={`${baseUrl}/q_auto:eco,vc_auto,w_800,c_limit,f_webm/${publicId}.webm`} type="video/webm" />

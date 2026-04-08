@@ -35,12 +35,12 @@ export default function SignInPage() {
       });
 
       if (result?.error) {
-        throw new Error("Invalid phone number or password.");
+        throw new Error("Утасны дугаар эсвэл нууц үг буруу байна.");
       }
 
       router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "Sign in failed. Please try again.");
+      setError(err.message || "Нэвтэрч чадсангүй. Дахин оролдоно уу.");
     } finally {
       setIsLoading(false);
     }
@@ -51,7 +51,7 @@ export default function SignInPage() {
     try {
       await signIn("google", { callbackUrl: "/dashboard" });
     } catch (err) {
-      setError("Google sign-in failed.");
+      setError("Google-ээр нэвтэрч чадсангүй.");
       setIsLoading(false);
     }
   };
@@ -89,13 +89,13 @@ export default function SignInPage() {
               className="absolute -top-10 -left-10 w-24 h-24 bg-sky-100 rounded-full blur-3xl opacity-50"
             />
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-3 tracking-tight leading-[0.95] relative z-10">
-              Welcome <br />
+              Тавтай <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600">
-                Back
+                Морилно уу
               </span>
             </h1>
             <p className="text-slate-500 font-bold text-sm leading-relaxed max-w-sm relative z-10">
-              Please enter your details to sign in.
+              Нэвтрэхийн тулд мэдээллээ оруулна уу.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ export default function SignInPage() {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="Phone Number"
+                placeholder="Утасны дугаар"
                 className="w-full bg-white border-2 border-slate-100 focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 rounded-[1.5rem] py-4 pl-14 pr-6 text-sm font-bold text-slate-900 placeholder:text-slate-300 transition-all shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] outline-none"
                 required
               />
@@ -125,7 +125,7 @@ export default function SignInPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
+                  placeholder="Нууц үг"
                   className="w-full bg-white border-2 border-slate-100 focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 rounded-[1.5rem] py-4 pl-14 pr-6 text-sm font-bold text-slate-900 placeholder:text-slate-300 transition-all shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] outline-none"
                   required
                 />
@@ -146,7 +146,7 @@ export default function SignInPage() {
               className="w-full bg-slate-900 hover:bg-sky-600 text-white font-black text-xs uppercase tracking-[0.25em] py-5 rounded-[1.5rem] shadow-xl hover:shadow-2xl hover:shadow-sky-600/30 transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 group"
             >
               {isLoading ? <Loader2 className="animate-spin" size={18} /> : (
-                <>Sign In <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></>
+                <>Нэвтрэх <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></>
               )}
             </button>
           </form>
@@ -154,7 +154,7 @@ export default function SignInPage() {
           {/* Social Login Separator */}
           <div className="flex items-center gap-4 my-6">
             <div className="h-px bg-slate-200 flex-1" />
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">or</span>
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">эсвэл</span>
             <div className="h-px bg-slate-200 flex-1" />
           </div>
 
@@ -170,14 +170,14 @@ export default function SignInPage() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
             </svg>
-            Sign in with Google
+            Google ашиглан нэвтрэх
           </button>
 
           {/* Sign Up Link */}
           <div className="mt-8 text-center">
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-              Need an account?
-              <Link href="/sign-up" className="text-sky-600 ml-2 hover:text-slate-900 transition-colors underline decoration-2 underline-offset-4">Sign up</Link>
+              Бүртгэлгүй юу?
+              <Link href="/sign-up" className="text-sky-600 ml-2 hover:text-slate-900 transition-colors underline decoration-2 underline-offset-4">Бүртгүүлэх</Link>
             </p>
           </div>
 
@@ -242,10 +242,10 @@ export default function SignInPage() {
           </div>
 
           <div className="text-center relative z-10">
-            <h3 className="text-2xl font-black text-slate-800 mb-2">Secure Access</h3>
+            <h3 className="text-2xl font-black text-slate-800 mb-2">Аюулгүй нэвтрэлт</h3>
             <div className="flex items-center justify-center gap-2 text-sky-600 bg-sky-50 px-4 py-2 rounded-full border border-sky-100 shadow-sm">
               <Lock size={24} />
-              <span className="text-[10px] font-black uppercase tracking-widest">Encrypted</span>
+              <span className="text-[10px] font-black uppercase tracking-widest">Нууцлагдсан</span>
             </div>
           </div>
 

@@ -4,20 +4,20 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema(
   {
     phone: { type: String, unique: true, sparse: true },
-    email: { type: String, sparse: true },
+    email: { type: String, sparse: true, index: true },
     password: { type: String }, // bcrypt hashed, null for Google-only users
-    googleId: { type: String, sparse: true },
+    googleId: { type: String, sparse: true, index: true },
     authProvider: { type: String, enum: ["credentials", "google"], default: "credentials" },
 
     fullName: { type: String },
     photo: { type: String },
 
     affiliation: { type: String }, // e.g. School or Organization
-    program: { type: String }, // e.g. And, Edu, VClub
+    program: { type: String, index: true }, // e.g. And, Edu, VClub
 
 
     // Roles: guest, volunteer, general_and, general_edu, general_vclub, admin
-    role: { type: String, default: "guest" },
+    role: { type: String, default: "guest", index: true },
 
     // Legacy: keep for data migration compatibility
     clerkId: { type: String, sparse: true },

@@ -19,7 +19,8 @@ export async function GET(req: Request) {
     }
 
     // Sort by date (newest first) with a 10-second max execution time
-    const events = await Event.find(query).sort({ date: 1 }).maxTimeMS(10000);
+    // Added .lean() for significant performance improvement (returns plain JS objects)
+    const events = await Event.find(query).sort({ date: 1 }).maxTimeMS(10000).lean();
 
     return NextResponse.json(events, { 
       status: 200,

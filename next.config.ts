@@ -5,6 +5,8 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
   /* config options here */
+  // @ts-ignore
+  allowedDevOrigins: ['192.168.1.63', '192.168.1.152'],
   reactStrictMode: true,
   compress: true,
   trailingSlash: false,

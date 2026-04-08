@@ -12,7 +12,7 @@ const EventSchema = new Schema(
       mn: { type: String, required: true },
       de: { type: String, required: true },
     },
-    date: { type: Date, required: true },
+    date: { type: Date, required: true, index: true },
     timeString: { type: String, required: true }, // e.g., "14:00 - 16:00"
     location: {
       en: { type: String, required: true },
@@ -23,14 +23,16 @@ const EventSchema = new Schema(
     category: {
       type: String,
       enum: ['campaign', 'workshop', 'fundraiser', 'meeting'],
-      required: true
+      required: true,
+      index: true
     },
     link: { type: String }, // Registration link
     university: { type: String, required: true, default: "MNUMS" },
     status: {
       type: String,
       enum: ['upcoming', 'past', 'cancelled'],
-      default: 'upcoming'
+      default: 'upcoming',
+      index: true
     },
     featured: { type: Boolean, default: false },
     attendees: [{ type: Schema.Types.ObjectId, ref: "User" }]

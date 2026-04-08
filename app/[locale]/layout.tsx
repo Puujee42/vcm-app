@@ -54,8 +54,13 @@ export default async function RootLayout({
           <link rel="dns-prefetch" href="https://res.cloudinary.com" />
           <link rel="dns-prefetch" href="https://grainy-gradients.vercel.app" />
           <link rel="dns-prefetch" href="https://images.unsplash.com" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+          <meta name="theme-color" content="#0ea5e9" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         </head>
-        <body className={`${inter.variable} font-sans`}>
+        <body className={`${inter.variable} font-sans overscroll-none`}>
           <NextIntlClientProvider messages={messages}>
             <MotionProvider>
               <SmoothScroll />

@@ -10,6 +10,8 @@ import {
   Ticket,
   Plane,
   ChevronDown,
+  LayoutDashboard,
+  UserCircle,
 } from "lucide-react";
 import { useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Motion as motion } from "./MotionProxy";
@@ -201,11 +203,11 @@ export default function Navbar() {
         >
           <div className="grid grid-cols-5 w-full">
             {[
-              { id: "home", icon: Home, href: "/", label: t("home") },
-              { id: "programs", icon: Plane, href: "/programs", label: t("program") },
-              { id: "shop", icon: ShoppingBag, href: "/shop", label: t("shop") },
-              { id: "events", icon: Ticket, href: "/events", label: t("events") },
-              { id: "lessons", icon: BookOpen, href: "/lessons", label: t("lessons") },
+              { id: "home", icon: Home, href: "/", label: "Нүүр" },
+              { id: "programs", icon: Plane, href: "/programs", label: "Хөтөлбөр" },
+              { id: "dashboard", icon: LayoutDashboard, href: "/dashboard", label: "Миний" },
+              { id: "events", icon: Ticket, href: "/events", label: "Арга хэмжээ" },
+              { id: "lessons", icon: BookOpen, href: "/lessons", label: "Сургалт" },
             ].map((item) => {
               const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
               return (

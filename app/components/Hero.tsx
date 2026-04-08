@@ -280,7 +280,6 @@ const HeroSection = () => {
                       src={active.img}
                       alt={t(`${active.key}.title`)}
                       fill
-                      unoptimized
                       className="object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700"
                       sizes="(max-width: 768px) 320px, 380px"
                       priority={index === 0}

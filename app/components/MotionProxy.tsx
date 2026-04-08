@@ -18,8 +18,10 @@ if (typeof window !== 'undefined') {
 }
 
 export const useIsMobile = () => {
-    const [isMobile, setIsMobile] = useState(globalIsMobile);
+    const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
+        // Set the actual value after first render/hydration to avoid mismatch
+        setIsMobile(globalIsMobile);
         const handler = (val: boolean) => setIsMobile(val);
         listeners.add(handler);
         return () => {

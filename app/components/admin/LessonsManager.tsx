@@ -230,7 +230,6 @@ export default function LessonsManager({ lessons, onRefresh }: LessonsManagerPro
                                                         alt="Lesson cover"
                                                         fill
                                                         className="object-cover"
-                                                        unoptimized
                                                     />
                                                 ) :
                                                     <div className="text-center text-slate-400"><FaImage className="text-2xl mx-auto mb-1" /><span className="text-xs">Cover Image</span></div>}

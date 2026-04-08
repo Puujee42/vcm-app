@@ -163,7 +163,7 @@ export default function LessonsClient() {
                                     alt={titleText}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                    unoptimized
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                  />
                                  <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/30 transition-colors flex items-center justify-center">
                                     <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-sky-500 shadow-lg scale-0 group-hover:scale-100 transition-transform duration-400">
