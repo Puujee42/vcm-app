@@ -12,6 +12,9 @@
     "lint": "eslint",
     "seed": "ts-node --compiler-options {\\\"module\\\":\\\"commonjs\\\"} lib/seed.ts",
     "cap:sync": "cap sync",
+    "cap:sync:dev": "CAP_ENV=development cap sync",
+    "cap:sync:prod": "CAP_ENV=production cap sync",
+    "cap:build:prod": "CAP_ENV=production cap copy && CAP_ENV=production cap sync",
     "cap:android": "cap open android",
     "cap:ios": "cap open ios"
   },

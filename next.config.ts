@@ -87,6 +87,23 @@ const nextConfig: NextConfig = {
         source: '/api/(events|news|banners|shopping|lessons)/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=30' }],
       },
+      // Capacitor CORS headers for WebView
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: 'capacitor://localhost' }, // Allow Capacitor iOS
+          { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
+          { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version' },
+        ],
+      },
+      // Additional allowance for Android
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: 'http://localhost' }, // Allow Capacitor Android
+        ],
+      },
     ];
   },
 

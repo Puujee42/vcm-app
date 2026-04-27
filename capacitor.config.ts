@@ -1,19 +1,18 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
+const isProd = process.env.CAP_ENV === 'production';
+const prodUrl = "https://www.soyolvideoshop.mn"; // Or your actual domain
+const devUrl = "http://192.168.1.10:3000"; // Replace with your LAN IP for local testing
+
 const config: CapacitorConfig = {
   appId: "com.vcm.app",
   appName: "VCM",
 
-  /*
-    This project is a Next.js app (SSR + API routes).
-    For Capacitor, the most reliable approach is to load the deployed web app via `server.url`.
-
-    - During development: point to your LAN URL (e.g. http://192.168.1.10:3000)
-    - For release builds: set to your HTTPS production domain
-  */
   server: {
-    url: "http://localhost:3000",
-    cleartext: true,
+    url: isProd ? prodUrl : devUrl,
+    cleartext: !isProd, // STRICTLY ENFORCE HTTPS IN PROD
+    androidScheme: 'https',
+    iosScheme: 'https',
   },
 };
 

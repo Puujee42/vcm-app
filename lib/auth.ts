@@ -71,7 +71,24 @@ export const authOptions: NextAuthOptions = {
       name: env.NODE_ENV === "production" ? "__Secure-next-auth.session-token" : "next-auth.session-token",
       options: {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: env.NODE_ENV === "production" ? "none" : "lax", // REQUIRED FOR CAPACITOR PROD
+        path: "/",
+        secure: env.NODE_ENV === "production", // REQUIRED FOR CAPACITOR PROD
+      },
+    },
+    callbackUrl: {
+      name: env.NODE_ENV === "production" ? "__Secure-next-auth.callback-url" : "next-auth.callback-url",
+      options: {
+        sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+        path: "/",
+        secure: env.NODE_ENV === "production",
+      },
+    },
+    csrfToken: {
+      name: env.NODE_ENV === "production" ? "__Host-next-auth.csrf-token" : "next-auth.csrf-token",
+      options: {
+        httpOnly: true,
+        sameSite: env.NODE_ENV === "production" ? "none" : "lax",
         path: "/",
         secure: env.NODE_ENV === "production",
       },
