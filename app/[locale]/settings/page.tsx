@@ -209,7 +209,7 @@ export default function SettingsPage() {
           <div className="card p-2">
             {[
               { icon: <Info size={16} />, label: locale === "mn" ? "VCM тухай" : "About VCM", href: "/about", color: "var(--blue)", bg: "var(--blue-dim)" },
-              { icon: <Shield size={16} />, label: locale === "mn" ? "Нууцлалын бодлого" : "Privacy Policy", href: "/about", color: "var(--orange)", bg: "var(--orange-dim)" },
+              { icon: <Shield size={16} />, label: locale === "mn" ? "Нууцлалын бодлого" : "Privacy Policy", href: "/privacy", color: "var(--orange)", bg: "var(--orange-dim)" },
             ].map((item, i, arr) => (
               <React.Fragment key={item.label}>
                 <a href={item.href} className="flex items-center gap-3 px-3 py-3.5 press">
