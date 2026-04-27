@@ -10,11 +10,17 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { documents } = await req.json();
+        const { documents, consentGiven, platform } = await req.json();
+
+        if (consentGiven !== true) {
+            return NextResponse.json({ error: 'Explicit data consent is required.' }, { status: 403 });
+        }
 
         if (!documents) {
             return NextResponse.json({ error: 'No documents provided' }, { status: 400 });
         }
+
+        const ipAddress = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
 
         await connectToDB();
 
@@ -25,6 +31,12 @@ export async function POST(req: NextRequest) {
                     documents,
                     documentsSubmitted: true,
                     updatedAt: new Date(),
+                    dataConsent: {
+                        givenAt: new Date(),
+                        version: "1.0",
+                        ipAddress,
+                        platform: platform || "unknown",
+                    }
                 },
             },
             { new: true }

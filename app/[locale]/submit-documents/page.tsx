@@ -1,11 +1,9 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { Upload, FileText, CheckCircle, Loader2, ArrowLeft } from "lucide-react";
+import { Upload, FileText, CheckCircle, Loader2, ArrowLeft, Shield, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { IOSAlert } from "@/app/components/iOSAlert";
 
 const DOCUMENT_KEYS = [
@@ -25,12 +23,16 @@ const DOCUMENT_KEYS = [
 
 export default function SubmitDocuments() {
     const t = useTranslations("SubmitDocuments");
+    const locale = useLocale();
     const { data: session } = useSession();
     const user = session?.user;
     const [documents, setDocuments] = useState<Record<string, string>>({});
     const [uploading, setUploading] = useState<Record<string, boolean>>({});
     const [submitting, setSubmitting] = useState(false);
     const [alert, setAlert] = useState<{ title: string; message: string; type: 'success' | 'error' | 'info' } | null>(null);
+
+    const [consentGiven, setConsentGiven] = useState(false);
+    const [checkboxTicked, setCheckboxTicked] = useState(false);
 
     const DOCUMENT_FIELDS = DOCUMENT_KEYS.map(field => ({
         ...field,
@@ -65,10 +67,11 @@ export default function SubmitDocuments() {
         setSubmitting(true);
 
         try {
+            const platform = /android/i.test(navigator.userAgent) ? 'android' : /ipad|iphone|ipod/i.test(navigator.userAgent) ? 'ios' : 'web';
             const res = await fetch("/api/user/submit-documents", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ documents }),
+                body: JSON.stringify({ documents, consentGiven: true, platform }),
             });
 
             if (res.ok) {
@@ -85,8 +88,102 @@ export default function SubmitDocuments() {
 
     const uploadedCount = Object.values(documents).filter(Boolean).length;
 
+    if (!consentGiven) {
+        return (
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} className="page">
+                <div className="page-inner space-y-6 pb-10">
+                    <div className="pt-2">
+                        <Link href="/dashboard" className="inline-flex items-center gap-1.5 py-2 opacity-60 active:opacity-100 transition-opacity font-semibold text-[13px]" style={{ color: 'var(--blue)' }}>
+                            <ArrowLeft size={16} /> {t("back")}
+                        </Link>
+                    </div>
+
+                    <div className="flex flex-col items-center text-center mt-4">
+                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style={{ background: 'var(--blue-dim)' }}>
+                            <Shield size={40} style={{ color: 'var(--blue)' }} />
+                        </div>
+                        <h1 className="t-large-title mb-2">{t("heading")}</h1>
+                        <p className="t-subhead" style={{ color: 'var(--label2)' }}>{t("subheading")}</p>
+                    </div>
+
+                    {/* Card 1: Data Types */}
+                    <div className="card p-5 space-y-4">
+                        <div className="flex items-start gap-3">
+                            <div className="w-2 h-2 rounded-full mt-1.5 shrink-0" style={{ background: 'var(--blue)' }} />
+                            <div>
+                                <p className="font-bold text-[14px]" style={{ color: 'var(--label)' }}>{t("sectionIdentity")}</p>
+                                <p className="text-[13px]" style={{ color: 'var(--label2)' }}>
+                                    {locale === 'mn' ? "Гадаад паспорт, Төрсний гэрчилгээ, Оршин суугаа хаяг, Гэрлэлтийн гэрчилгээ, Жолооны үнэмлэх." : "Passport, Birth cert, Residence cert, Marriage cert, Driver's license."}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="h-px w-full" style={{ background: 'var(--sep)' }} />
+                        <div className="flex items-start gap-3">
+                            <div className="w-2 h-2 rounded-full mt-1.5 shrink-0" style={{ background: 'var(--red)' }} />
+                            <div>
+                                <p className="font-bold text-[14px]" style={{ color: 'var(--label)' }}>{t("sectionHealth")}</p>
+                                <p className="text-[13px]" style={{ color: 'var(--label2)' }}>
+                                    {locale === 'mn' ? "Эрүүл мэндийн хуудас, Сэтгэцийн эрүүл мэндийн магадлагаа, Шашин шүтлэг, Үндэстэн/Төрсөн газар." : "Medical records, Mental health exam, Religion, Nationality/Place of birth."}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="h-px w-full" style={{ background: 'var(--sep)' }} />
+                        <div className="flex items-start gap-3">
+                            <div className="w-2 h-2 rounded-full mt-1.5 shrink-0" style={{ background: 'var(--emerald)' }} />
+                            <div>
+                                <p className="font-bold text-[14px]" style={{ color: 'var(--label)' }}>{t("sectionEducation")}</p>
+                                <p className="text-[13px]" style={{ color: 'var(--label2)' }}>
+                                    {locale === 'mn' ? "Боловсролын гэрчилгээ, Мэргэжлийн туршлага, Англи хэлний гэрчилгээ, eMongolia лавлагаа." : "Education certs, Professional exp, English cert, eMongolia cert."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Card 2: Disclosures */}
+                    <div className="card p-5 space-y-4">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle size={14} className="mt-0.5 shrink-0" style={{ color: 'var(--orange)' }} />
+                            <p className="text-[13px]" style={{ color: 'var(--label)' }}>{t("disclosure1")}</p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle size={14} className="mt-0.5 shrink-0" style={{ color: 'var(--orange)' }} />
+                            <p className="text-[13px]" style={{ color: 'var(--label)' }}>{t("disclosure2")}</p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle size={14} className="mt-0.5 shrink-0" style={{ color: 'var(--orange)' }} />
+                            <p className="text-[13px]" style={{ color: 'var(--label)' }}>{t("disclosure3")}</p>
+                        </div>
+                    </div>
+
+                    <Link href="/privacy" className="text-[13px] font-semibold text-center block" style={{ color: 'var(--blue)' }}>
+                        {t("privacyLink")}
+                    </Link>
+
+                    <label className="flex items-start gap-3 p-4 rounded-xl cursor-pointer" style={{ background: 'var(--bg)' }}>
+                        <input type="checkbox" checked={checkboxTicked} onChange={(e) => setCheckboxTicked(e.target.checked)} className="mt-1 w-4 h-4 rounded" />
+                        <span className="text-[13px]" style={{ color: 'var(--label)' }}>{t("checkboxLabel")}</span>
+                    </label>
+
+                    <div className="space-y-3 pt-4">
+                        <button 
+                            disabled={!checkboxTicked}
+                            onClick={() => setConsentGiven(true)}
+                            className="btn btn-primary w-full"
+                            style={{ opacity: checkboxTicked ? 1 : 0.5 }}
+                        >
+                            {t("continueBtn")}
+                        </button>
+                        <Link href="/dashboard" className="btn w-full block text-center font-semibold text-[14px]" style={{ color: 'var(--label2)' }}>
+                            {t("declineBtn")}
+                        </Link>
+                    </div>
+                </div>
+            </motion.div>
+        );
+    }
+
     return (
-        <div className="page">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} className="page">
             <div className="page-inner space-y-6">
                 {/* Header */}
                 <div className="pt-2">
@@ -94,7 +191,10 @@ export default function SubmitDocuments() {
                         <ArrowLeft size={16} /> {t("back")}
                     </Link>
                     <h1 className="t-large-title">{t("title")}</h1>
-                    <p className="t-subhead mt-1" style={{ color: 'var(--label2)' }}>{t("subtitle")}</p>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full mt-2" style={{ background: 'var(--emerald-dim)', color: 'var(--emerald)' }}>
+                        <span className="text-[12px] font-bold">{t("consentBadge")}</span>
+                    </div>
+                    <p className="t-subhead mt-3" style={{ color: 'var(--label2)' }}>{t("subtitle")}</p>
 
                     {/* Progress Bar */}
                     <div className="card p-4 mt-6">
@@ -161,7 +261,7 @@ export default function SubmitDocuments() {
                 message={alert?.message || ""} 
                 type={alert?.type} 
             />
-        </div>
+        </motion.div>
     );
 }
 

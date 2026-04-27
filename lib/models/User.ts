@@ -92,6 +92,14 @@ const UserSchema = new mongoose.Schema(
       marketingEmailsEnabled: { type: Boolean, default: false },
     },
 
+    // --- DATA CONSENT (GDPR / App Store) ---
+    dataConsent: {
+      givenAt: { type: Date },
+      version: { type: String, default: "1.0" },
+      ipAddress: { type: String },
+      platform: { type: String },
+    },
+
     // --- PUSH NOTIFICATION TOKENS (Capacitor) ---
     deviceTokens: [
       {

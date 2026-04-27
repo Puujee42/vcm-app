@@ -958,6 +958,19 @@
       "uploading": "Uploading...",
       "clickUpload": "Click to upload",
       "maxSize": "Max 10MB"
-    }
+    },
+    "heading": "Data Privacy Consent",
+    "subheading": "Please review and consent to our data collection policies before uploading sensitive documents.",
+    "sectionIdentity": "Identity & Legal Documents",
+    "sectionHealth": "Health & Background Records",
+    "sectionEducation": "Education & Professional Experience",
+    "disclosure1": "Documents may be securely stored in offshore servers via Cloudinary.",
+    "disclosure2": "Only authorized VCM staff will have access to your sensitive documents.",
+    "disclosure3": "You retain the right to withdraw your consent and delete your data at any time via Settings.",
+    "privacyLink": "Read our full Privacy Policy",
+    "checkboxLabel": "I have read the Privacy Policy and I explicitly consent to the collection, storage, and processing of the sensitive documents listed above.",
+    "continueBtn": "Continue to Upload",
+    "declineBtn": "Go back",
+    "consentBadge": "✓ Consent recorded"
   }
 }

@@ -50,6 +50,9 @@ export default function SettingsPage() {
   const [haptic, setHaptic] = useState(true);
   const [saving, setSaving] = useState(false);
   const [showLang, setShowLang] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
 
   useEffect(() => {
     setMounted(true);
@@ -70,6 +73,22 @@ export default function SettingsPage() {
       });
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    setDeleteError("");
+    try {
+      const res = await fetch("/api/user/account", { method: "DELETE" });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete account");
+      }
+      await signOutToSignIn(locale);
+    } catch (err: any) {
+      setDeleteError(err.message);
+      setDeleting(false);
     }
   };
 
@@ -240,6 +259,49 @@ export default function SettingsPage() {
                 {locale === "mn" ? "Гарах" : "Sign out"}
               </p>
             </button>
+
+            <div className="h-px mx-3" style={{ background: "var(--sep)" }} />
+
+            {!showDeleteConfirm ? (
+              <button
+                onClick={() => setShowDeleteConfirm(true)}
+                className="flex items-center gap-3 px-3 py-3.5 w-full press"
+              >
+                <div className="icon-box-sm" style={{ background: "var(--red-dim)", color: "var(--red)" }}>
+                  <Trash2 size={16} />
+                </div>
+                <p className="flex-1 text-left text-[14px] font-semibold" style={{ color: "var(--red)" }}>
+                  {locale === "mn" ? "Бүртгэл устгах" : "Delete account"}
+                </p>
+              </button>
+            ) : (
+              <div className="px-3 py-3 flex flex-col gap-3">
+                <p className="text-[13px] font-medium" style={{ color: "var(--red)" }}>
+                  {locale === "mn" ? "Таны бүх мэдээлэл болон бичиг баримт устах бөгөөд сэргээх боломжгүй. Устгах уу?" : "All your data and documents will be permanently deleted. This cannot be undone. Are you sure?"}
+                </p>
+                {deleteError && (
+                  <p className="text-[12px] font-semibold" style={{ color: "var(--red)" }}>{deleteError}</p>
+                )}
+                <div className="flex gap-2">
+                  <button
+                    disabled={deleting}
+                    onClick={() => setShowDeleteConfirm(false)}
+                    className="flex-1 py-2 rounded-xl text-[14px] font-semibold press"
+                    style={{ background: "var(--fill3)", color: "var(--label)" }}
+                  >
+                    {locale === "mn" ? "Цуцлах" : "Cancel"}
+                  </button>
+                  <button
+                    disabled={deleting}
+                    onClick={handleDeleteAccount}
+                    className="flex-1 py-2 rounded-xl text-[14px] font-semibold press flex justify-center items-center"
+                    style={{ background: "var(--red)", color: "white" }}
+                  >
+                    {deleting ? (locale === "mn" ? "Устгаж байна..." : "Deleting...") : (locale === "mn" ? "Тийм, устгах" : "Yes, delete")}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
