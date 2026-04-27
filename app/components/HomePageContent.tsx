@@ -29,8 +29,7 @@ const QUICK_ACTIONS = [
   { id: "vclub", emoji: "🌍", label: "V-Club", sub: "Олон улсын сүлжээ", href: "/programs/vclub", from: "#f59e0b", to: "#f97316" },
 ];
 
-export default function HomePageContent({ shopItems, locale }: { shopItems?: any[]; locale?: string }) {
-  const [items, setItems] = useState<any[]>(shopItems || []);
+export default function HomePageContent({ shopItems = [], locale }: { shopItems?: any[]; locale?: string }) {
   const [mounted, setMounted] = useState(false);
   const { status, data: session } = useSession();
   const isSignedIn = mounted && status === "authenticated";
@@ -38,14 +37,6 @@ export default function HomePageContent({ shopItems, locale }: { shopItems?: any
 
   useEffect(() => { setMounted(true); }, []);
 
-  useEffect(() => {
-    if (!shopItems || shopItems.length === 0) {
-      fetch("/api/shopping")
-        .then((res) => res.json())
-        .then((data) => { if (Array.isArray(data)) setItems(data.slice(0, 8)); })
-        .catch(() => {});
-    }
-  }, [shopItems]);
 
   const categories = useMemo(() => ([
     {
@@ -280,7 +271,7 @@ export default function HomePageContent({ shopItems, locale }: { shopItems?: any
       </LazySection>
 
       {/* Shop */}
-      {items.length > 0 && locale && (
+      {shopItems.length > 0 && locale && (
         <LazySection placeholder={
           <div className="mt-8">
             <div className="flex gap-3 px-5">
@@ -302,7 +293,7 @@ export default function HomePageContent({ shopItems, locale }: { shopItems?: any
               </Link>
             </div>
             <div className="flex overflow-x-auto gap-3 px-5 pb-3 no-scroll">
-              <ShopClient items={items} locale={locale} isHorizontal />
+              <ShopClient items={shopItems.slice(0, 8)} locale={locale} isHorizontal />
             </div>
           </section>
         </LazySection>

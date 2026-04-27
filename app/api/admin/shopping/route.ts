@@ -4,6 +4,7 @@ import ShoppingItem from "@/lib/models/ShoppingItem";
 import { withAdminAuth } from "@/lib/adminAuth";
 import { v2 as cloudinary } from "cloudinary";
 import { logAdminAction } from "@/lib/audit";
+import { invalidateCache } from "@/lib/cache/revalidate";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -48,6 +49,8 @@ export const POST = withAdminAuth(async (req: Request) => {
       meta: { category: newItem.category, price: newItem.price, stock: newItem.stock },
     });
 
+    invalidateCache('shopping');
+
     return NextResponse.json(newItem, { status: 201 });
   } catch (error: any) {
     console.error("Shopping item create error:", error);
@@ -80,6 +83,8 @@ export const PUT = withAdminAuth(async (req: Request) => {
       targetId: String(id),
     });
 
+    invalidateCache('shopping');
+
     return NextResponse.json(updated, { status: 200 });
   } catch (error: any) {
     console.error("Shopping item update error:", error);
@@ -104,6 +109,7 @@ export const DELETE = withAdminAuth(async (req: Request) => {
       targetType: "ShoppingItem",
       targetId: String(id),
     });
+    invalidateCache('shopping');
     return NextResponse.json({ success: true });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -3,6 +3,7 @@ import { getAuthSession } from "@/lib/authHelpers";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
+import { getCachedShoppingItems } from "@/lib/data/shopping";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -22,5 +23,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     redirect(`/${locale}/admin`);
   }
 
-  return <HomePageContent locale={locale} />;
+  const shoppingItems = await getCachedShoppingItems();
+
+  return <HomePageContent locale={locale} shopItems={shoppingItems} />;
 }
