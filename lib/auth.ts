@@ -112,7 +112,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
 
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger }) {
       if (user) {
         await connectToDB();
         let dbUser;
@@ -135,6 +135,19 @@ export const authOptions: NextAuthOptions = {
           token.profileComplete = !!(dbUser.phone && dbUser.password);
         }
       }
+
+      // Refresh the session token data if update() was called
+      if (trigger === "update" && token.userId) {
+        await connectToDB();
+        const dbUser = await User.findById(token.userId);
+        if (dbUser) {
+          token.userId = dbUser._id.toString();
+          token.role = dbUser.role;
+          token.phone = dbUser.phone;
+          token.profileComplete = !!(dbUser.phone && dbUser.password);
+        }
+      }
+
       return token;
     },
 
